@@ -1,0 +1,10 @@
+.gitignore
+.coverage
+.eggs/
+.idea/
+.tox/
+dist/
+htmlcov/
+web_data_extractor.egg-info/
+__pycache__
+*.pyc
