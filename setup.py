@@ -4,6 +4,7 @@ setup(
     name='web-data-extractor',
     install_requires=[
         'beautifulsoup4',
+        'enum;python_version<"3.4"',
         'requests',
     ],
     entry_points={

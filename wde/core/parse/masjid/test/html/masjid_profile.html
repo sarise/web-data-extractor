@@ -1,0 +1,518 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Sistem Informasi Masjid Seluruh Indonesia |  PROFIL MASJID/MUSHALLA</title>
+
+    <link rel="shortcut icon" type="image/ico" href="http://simas.kemenag.go.id/public/styles/icon/favicon.ico" />
+    <link rel="stylesheet" href="http://simas.kemenag.go.id/public/styles/admin/styles.css" type="text/css" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0">
+    
+    <!-- JQUERY -->
+    <script src="http://simas.kemenag.go.id/public/javascript/jquery-1.7.1.min.js" type="text/javascript"></script>
+
+    <!-- PRETTY PHOTO -->
+    <link rel="stylesheet" href="http://simas.kemenag.go.id/public/javascript/prettyPhoto/css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+    <script src="http://simas.kemenag.go.id/public/javascript/prettyPhoto/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- DROPDOWN PLAIN -->
+    <script src="http://simas.kemenag.go.id/public/javascript/jquery.dropdownPlain.js" type="text/javascript"></script>
+    
+    <!-- JQUERY VTIP -->
+    <link rel="stylesheet" href="http://simas.kemenag.go.id/public/javascript/jquery.vtip/css/vtip.css" type="text/css" media="screen" charset="utf-8" />
+    <script src="http://simas.kemenag.go.id/public/javascript/jquery.vtip/vtip-min.js" type="text/javascript" charset="utf-8"></script>
+    
+    <script type="text/javascript">
+        // <![CDATA[
+            var site_url    = "http://simas.kemenag.go.id/index.php" ;
+            var base_url    = "http://simas.kemenag.go.id/" ;
+        // ]]>
+		
+        $(function() {
+            $("a[rel^='prettyPhoto']").prettyPhoto({theme:'facebook'});
+            
+            var provinsi_id2 = 0 ;
+            var kabupaten_id2 = 0 ;
+            var kecamatan_id2 = 0 ;
+
+            if (provinsi_id2) {
+                $("#kab_id2").load("http://simas.kemenag.go.id/index.php/ajax/address/kabupaten/" + provinsi_id2 + "/" + kabupaten_id2 + "/kabupaten_id2" );
+            }
+
+            if (kabupaten_id2) {
+                $("#kec_id2").load("http://simas.kemenag.go.id/index.php/ajax/address/kecamatan/" + kabupaten_id2 + "/" + kecamatan_id2 );
+            }
+
+            $( "#provinsi_id2" ).change(function() {
+                var provinsi_id2   = $("#provinsi_id2").val() ;
+
+                if (provinsi_id2 > 0) {
+                    $("#kab_id2").load("http://simas.kemenag.go.id/index.php/ajax/address/kabupaten/" + provinsi_id2 + "/0" + "/kabupaten_id2" );
+                }
+            });
+
+            $( "#kab_id2" ).change(function() {
+                var kabupaten_id2   = $("#kabupaten_id2").val() ;
+
+                if (kabupaten_id2 > 0) {
+                    $("#kec_id2").load("http://simas.kemenag.go.id/index.php/ajax/address/kecamatan/" + kabupaten_id2 + "/0" );
+                }
+            });      
+            
+            $("#filter").click(function(){
+                $("#search_all").hide() ;
+                $("#search_by_filter").show() ;
+            })
+        });
+        
+        
+
+        function autoSubmit() {
+            var formObject = document.forms['theForm'];
+            formObject.submit();
+        }
+
+        var popUpWin=0;
+        function popUpWindow(URLStr, left, top, width, height)
+        {
+          if(popUpWin)
+          {
+            if(!popUpWin.closed) popUpWin.close();
+          }
+          popUpWin = open(URLStr, 'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width='+800+',height='+600+',left='+left+', top='+top+',screenX='+left+',screenY='+top+'');
+        }
+
+    </script>
+    
+            
+            
+</head>
+
+        
+   <body>
+
+<div id="wrapper">
+
+    <div id="wrapper2">
+        <div id="wphead">
+            <div id="wphead1">
+                <a href="http://simas.kemenag.go.id/index.php">
+                    <img src="http://simas.kemenag.go.id/public/styles/admin/images/header-1.jpg" alt="" />
+                </a>
+            </div>
+            <div id="wphead2">
+                <div id="user_info">
+                    <b style="text-shadow: 2px 2px 2px #333;">SIMAS - SISTEM INFORMASI MASJID</b>
+                </div>
+                
+            </div>
+        </div>
+
+    <ul id="adminmenu" class="dropdown">
+        <li>
+            <a href="http://simas.kemenag.go.id/index.php/home/"          class="">BERANDA</a>
+            <ul class="sub_menu" style="width: 130px;">
+                <li><a href="http://simas.kemenag.go.id/index.php/home/"   class="">INFORMASI</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="http://simas.kemenag.go.id/index.php/profil/"        class="current">PROFIL MASJID/MUSHALLA</a>
+            <ul class="sub_menu" style="width: 260px;">
+                                    <li>
+                        <a href="javascript:;">PROFIL MASJID</a>
+                        <ul style="width: 250px;margin-top: 0px;">
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=1&amp;tipologi_name=Masjid Negara"        class="">MASJID NEGARA</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=2&amp;tipologi_name=Masjid Raya"        class="">MASJID RAYA</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=3&amp;tipologi_name=Masjid Agung"        class="">MASJID AGUNG</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=4&amp;tipologi_name=Masjid Besar"        class="">MASJID BESAR</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=5&amp;tipologi_name=Masjid Jami"        class="">MASJID JAMI</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=6&amp;tipologi_name=Masjid Bersejarah"        class="">MASJID BERSEJARAH</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=7&amp;tipologi_name=Masjid di Tempat Publik "        class="">MASJID DI TEMPAT PUBLIK </a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=8&amp;tipologi_name=Masjid Nasional"        class="">MASJID NASIONAL</a></li>
+                                                    </ul>
+                    </li>
+                      
+                                    <li>
+                        <a href="javascript:;">PROFIL MUSHALLA</a>
+                        <ul style="width: 300px;margin-top: 34px;">
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/mushalla/?tipologi_id=2&amp;tipologi_name=Mushalla di tempat Publik"        class="">MUSHALLA DI TEMPAT PUBLIK</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/mushalla/?tipologi_id=3&amp;tipologi_name=Mushalla Perkantoran"        class="">MUSHALLA PERKANTORAN</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/mushalla/?tipologi_id=4&amp;tipologi_name=Mushalla Pendidikan"        class="">MUSHALLA PENDIDIKAN</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/mushalla/?tipologi_id=1&amp;tipologi_name=Mushalla Perumahan"        class="">MUSHALLA PERUMAHAN</a></li>
+                                                    </ul>
+                    </li>
+                      
+            </ul>
+            
+        </li>
+        <li>
+            <a href="http://simas.kemenag.go.id/index.php/arsip/"       class="">INFO TERKINI</a>
+        </li>
+        <li>
+            <a href="http://simas.kemenag.go.id/index.php/arsip/?category_id=5"       class="">DOWNLOAD</a>
+        </li>
+        <li>
+            <a href="http://simas.kemenag.go.id/index.php/login/">LOGIN</a>
+        </li>
+
+        
+    </ul>
+
+    <div id="minisub" style="height: 5px;"></div>    
+    
+        
+    <div id="submenu">
+        <table class="widefat" id="widesearch" style="border: none;border-spacing: 0;background: none;">
+            <tr>
+                <td align="right">
+                    <div id="search_all">
+                        <form action="http://simas.kemenag.go.id/index.php/search/" method="get">
+                            <span>PENCARIAN &nbsp;</span>
+                            <input type="text" name="keyword" value=""  />                                &nbsp;    
+                            <input type="submit" name="filter" value="CARI" class="button" />                            <a href="javascript:;" id="filter"><b>Filter + </b></a>
+                        </form>                
+                    </div>
+
+                    <div id="search_by_filter" style="display: none;">
+                        <form action="http://simas.kemenag.go.id/index.php/search/" method="get">
+                            <span>FILTER &nbsp;</span>
+
+                                                            <select name="provinsi_id" id="provinsi_id2" style="width:100px;"><option value="" selected="selected">- provinsi -</option><option value="1">ACEH</option><option value="2">SUMATERA UTARA</option><option value="3">SUMATERA BARAT</option><option value="4">RIAU</option><option value="5">JAMBI</option><option value="6">SUMATERA SELATAN</option><option value="7">BENGKULU</option><option value="8">LAMPUNG</option><option value="9">KEP. BANGKA BELITUNG</option><option value="10">KEPULAUAN RIAU</option><option value="11">DKI JAKARTA</option><option value="12">BANTEN</option><option value="13">JAWA BARAT</option><option value="14">JAWA TENGAH</option><option value="15">D.I YOGYAKARTA</option><option value="16">JAWA TIMUR</option><option value="17">BALI</option><option value="18">NUSA TENGGARA BARAT</option><option value="19">NUSA TENGGARA TIMUR</option><option value="20">KALIMANTAN BARAT</option><option value="21">KALIMANTAN TENGAH</option><option value="22">KALIMANTAN SELATAN</option><option value="23">KALIMANTAN TIMUR</option><option value="24">SULAWESI UTARA</option><option value="25">SULAWESI TENGAH</option><option value="26">SULAWESI SELATAN</option><option value="27">SULAWESI TENGGARA</option><option value="28">GORONTALO</option><option value="29">SULAWESI BARAT</option><option value="30">MALUKU</option><option value="31">MALUKU UTARA</option><option value="32">P A P U A</option><option value="33">PAPUA BARAT</option><option value="34">KALIMANTAN UTARA</option></select>                            
+                                                            <span id="kab_id2"><select name="kbid" style="width: 100px;"></select></span>
+                            
+                                                            <span id="kec_id2"><select name="kcid" style="width:100px;"></select></span>
+                                
+
+                            <select name="tipologi_id" style="width:100px;"><option value="" selected="selected">- Tipologi -</option><option value="1">Masjid Negara</option><option value="2">Masjid Raya</option><option value="3">Masjid Agung</option><option value="4">Masjid Besar</option><option value="5">Masjid Jami</option><option value="6">Masjid Bersejarah</option><option value="7">Masjid di Tempat Publik </option><option value="8">Masjid Nasional</option></select>                                &nbsp;
+                            <input type="text" name="keyword" value="" placeholder="ANY KEY" style="width:100px;"  />                                &nbsp;    
+                            <input type="submit" name="filter" value="FILTER" class="button" style="padding:3px 10px;" />                        </form>               
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+        
+    <div id="wrapper-shadow"><!-- SLIDER -->
+<script type="text/javascript" src="http://simas.kemenag.go.id/public/javascript/slider/slider.js"></script>
+<link rel="stylesheet" href="http://simas.kemenag.go.id/public/javascript/slider/slider.css" type="text/css" />
+
+<div class="wrap">
+    <div id="back">
+        <a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=">KEMBALI</a>
+    </div>
+    
+        
+        <div id="profil-title">
+            <div id="logo">
+                <h6>MASJID ISTIQLAL</h6>
+                <div style="width: 16%;float: left;">Alamat :</div>
+                <div style="width: 80%;float: left;">    
+                    Jl. Taman Wijaya Kusuma Rt.08/02, Kel. Pasar Baru, Kec. Sawah Besar, Jakarta Pusat                </div>
+            </div>
+            <div id="tip">
+                TIPOLOGI<br />
+                <a href="javascript:;">Masjid Negara</a>
+            </div>
+        </div>    
+        
+        
+    <h5><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=&amp;provinsi_id=11">DKI JAKARTA</a> 
+            &raquo; <a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=&amp;kabupaten_id=152">KOTA ADM. JAKARTA PUSAT</a> 
+            &raquo; <a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=&amp;kecamatan_id=1823">SAWAH BESAR</a></h5>
+           
+        
+        
+    <div id="profil-right">
+                <table class="widefat" style="width:96%;margin-left:10px">
+            <tr>
+                <td valign="top" style="width: 20%;">Deskripsi</td>
+                <td valign="top" style="width: 1%;">:</td>
+                <td valign="top">
+                    www.istiqlalmosque.com<br />
+<br />
+www.masjidistiqlal.or.id 
+                </td>
+            </tr>
+        </table>
+        
+        <br />
+        
+                
+        <table class="widefat" id="profil-table" style="width:96%;margin-left:10px;border: 1px solid #FD9C00 ;">
+            <tr class="alternate">
+                <th style="width:30%;">ID Masjid</th>
+                <th style="width: 1%;">:</th>
+                <td>
+                    <a href="javascript:;" title="<b>Info Kode Masjid :</b><br /> 
+                                        Digit 1-3      : Kode Tipologi Masjid<br />
+                                        Digit 4-9      : Kode Wilayah Masjid<br />
+                                        Digit 10-15 : Nomor Urutan Masjid di wilayah tersebut
+                                        " class="vtip">    
+                        01.0.11.03.02.000001                    </a>
+                </td>
+            </tr>
+            
+                        <tr class="alternate">
+                <th style="width:30%;">Luas Tanah</th>
+                <th style="width: 1%;">:</th>
+                <td>93.200 m<sup>2</sup></td>
+            </tr>
+                        
+                        <tr class="alternate">
+                <th>Status Tanah</th>
+                <th>:</th>
+                <td>SHM</td>
+            </tr>
+                        
+                        <tr class="alternate">
+                <th>Luas Bangunan</th>
+                <th>:</th>
+                <td>24.200 m<sup>2</sup></td>
+            </tr>
+                        
+                        <tr class="alternate">
+                <th>Tahun Berdiri</th>
+                <th>:</th>
+                <td>1978</td>
+            </tr>
+                        
+                        <tr class="alternate">
+                <th>Daya Tampung Jamaah</th>
+                <th>:</th>
+                <td>200.000</td>
+            </tr>
+                        
+                        <tr class="alternate">
+                <th>No Telp/Faks</th>
+                <th>:</th>
+                <td>021 3811708 / 021 3508903</td>
+            </tr>
+                        
+                        <tr class="alternate">
+                <th valign="top">Fasilitas</th>
+                <th valign="top">:</th>
+                <td valign="top">
+                                            Internet Akses, Parkir, Taman, Gudang, Tempat Penitipan Sepatu/Sandal, Ruang Belajar (TPA/Madrasah), Aula Serba Guna, Poliklinik, Koperasi, Perpustakaan, Kantor Sekretariat, Penyejuk Udara/AC, Sound System dan Multimedia, Pembangkit Listrik/Genset, Kamar Mandi/WC, Tempat Wudhu, Sarana Ibadah                                        
+                                            ,                                         
+                                            Sarana Olah Raga, Lift bagi penyandang cacat                                    </td>
+            </tr>
+                        
+                        <tr class="alternate">
+                <th valign="top">Kegiatan</th>
+                <th valign="top">:</th>
+                <td valign="top">
+                                            Pemberdayaan Zakat, Infaq, Shodaqoh dan Wakaf, Menyelenggarakan kegiatan pendidikan (TPA, Madrasah, Pusat Kegiatan Belajar Masyarakat), Menyelenggarakan kegiatan sosial ekonomi (koperasi masjid), Menyelenggarakan Pengajian Rutin, Menyelenggarakan Dakwah Islam/Tabliq Akbar, Menyelenggarakan Kegiatan Hari Besar Islam, Menyelenggarakan Sholat Jumat, Menyelenggarakan Ibadah Sholat Fardhu                                        
+                                        
+                                    </td>
+            </tr>
+                        
+                        <tr class="alternate">
+                <th>Jumlah Pengurus</th>
+                <th>:</th>
+                <td>20</td>
+            </tr>
+                        
+                        <tr class="alternate">
+                <td colspan="3">
+                    <table class="widefat" id="profil-subtable">
+                        <tr class="alternate">
+                            <th>IMAM</th>
+                            <th>KHATIB</th>
+                        </tr>
+                        <tr>
+                            <td align="center">10</td>
+                            <td align="center">10</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+                        
+                        <tr class="alternate">
+                <th valign="top">Dokumen</th>
+                <th valign="top">:</th>
+                <td valign="top">
+                    <ol style="margin: 0;padding-left: 21px;">
+                                                    <li>
+                                                                    <a title="pengelolaanistiqlal.pdf" href="http://simas.kemenag.go.id/public/upload/files/pengelolaanistiqlal.pdf" class="a-pdf">
+                                        Pengelolaan Masjid Istiqlal (33.9 KB)                                    </a>
+                                                            </li>
+                                                    <li>
+                                                                    <a title="kepres-n0.38-tahun-1994.pdf" href="http://simas.kemenag.go.id/public/upload/files/kepres-n0.38-tahun-1994.pdf" class="a-pdf">
+                                        Kepres Pengelolaan Masjid Istiqlal (448.3 KB)                                    </a>
+                                                            </li>
+                                                    <li>
+                                                                    <a title="kma-424-tahun-2015-bppmi.pdf" href="http://simas.kemenag.go.id/public/upload/files/kma-424-tahun-2015-bppmi.pdf" class="a-pdf">
+                                        BPPMI Periode 2016-2020 (720.6 KB)                                    </a>
+                                                            </li>
+                                                    <li>
+                                                                    <a title="sk-imam-besar-istiqlal.pdf" href="http://simas.kemenag.go.id/public/upload/files/sk-imam-besar-istiqlal.pdf" class="a-pdf">
+                                        Imam Besar Masjid Istiqlal (124.0 KB)                                    </a>
+                                                            </li>
+                                            </ol>
+                </td>
+            </tr>
+                        
+        </table>
+    </div>
+    
+    <div id="profil-left">
+        <div id="profil-masjid">
+            No. ID MASJID
+            <br />
+            <a href="javascript:;" title="<b>Info Kode Masjid :</b><br /> 
+                                        Digit 1-3      : Kode Tipologi Masjid<br />
+                                        Digit 4-9      : Kode Wilayah Masjid<br />
+                                        Digit 10-15 : Nomor Urutan Masjid di wilayah tersebut
+                                        " class="vtip">    
+                01.0.11.03.02.000001            </a>
+        </div>
+        
+            <div class="slider">
+                                                                            <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/8249023789_711bf182041.jpg" title="" class="active">
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/8249023789_711bf182041.jpg" alt="" width="385" height="224" class="profil-img" />
+                        </a>
+                                                                                <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/1086442.jpg" title="" >
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/1086442.jpg" alt="" width="385" height="224" class="profil-img" />
+                        </a>
+                                                                                <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/68923793.jpg" title="" >
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/68923793.jpg" alt="" width="385" height="224" class="profil-img" />
+                        </a>
+                                                                                <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/images_(3)2.jpg" title="" >
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/images_(3)2.jpg" alt="" width="385" height="224" class="profil-img" />
+                        </a>
+                                                                                <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/Istiqlal_Mosque.jpg" title="" >
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/Istiqlal_Mosque.jpg" alt="" width="385" height="224" class="profil-img" />
+                        </a>
+                                                                                <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/5._Secara_keseluruhan_masjid_Istiqlal_dibangun_di_lahan_seluas_9,5_hektare__.jpg" title="" >
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/5._Secara_keseluruhan_masjid_Istiqlal_dibangun_di_lahan_seluas_9,5_hektare__.jpg" alt="" width="385" height="224" class="profil-img" />
+                        </a>
+                                                                                <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/10._Masjid_Istiqlal_mempunyai_kegiatan_rutin_harian,_bulanan,_dan_tahunan,_kegiatan_makin_banyak_memasuki_bulan_Ramadan__.jpg" title="" >
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/10._Masjid_Istiqlal_mempunyai_kegiatan_rutin_harian,_bulanan,_dan_tahunan,_kegiatan_makin_banyak_memasuki_bulan_Ramadan__.jpg" alt="" width="385" height="224" class="profil-img" />
+                        </a>
+                                                                                <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/11._Bagian_kanan,_kiri,_belakang_masjid_Istiqlal_dibuat_bertingkat_sehingga_mampu_menampung_jamaah_lebih_banyak__.jpg" title="" >
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/11._Bagian_kanan,_kiri,_belakang_masjid_Istiqlal_dibuat_bertingkat_sehingga_mampu_menampung_jamaah_lebih_banyak__.jpg" alt="" width="385" height="224" class="profil-img" />
+                        </a>
+                                                                                <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/13._Kaligrafi_dua_kalimat_syahadat_terpampang_di_bagian_tengah_masjid__.jpg" title="" >
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/13._Kaligrafi_dua_kalimat_syahadat_terpampang_di_bagian_tengah_masjid__.jpg" alt="" width="385" height="224" class="profil-img" />
+                        </a>
+                                                                                <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/14._Lafadz_Allah_yang_berada_di_bagian_depan_masjid__.jpg" title="" >
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/14._Lafadz_Allah_yang_berada_di_bagian_depan_masjid__.jpg" alt="" width="385" height="224" class="profil-img" />
+                        </a>
+                                                                                <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/15._Masjid_Istiqlal_mampu_menampung_jamaah_hingga_ribuan_orang__.jpg" title="" >
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/15._Masjid_Istiqlal_mampu_menampung_jamaah_hingga_ribuan_orang__.jpg" alt="" width="385" height="224" class="profil-img" />
+                        </a>
+                                                                                <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/3._Masjid_Istiqlal_Masjid_Terbesar_di_Asia_Tenggara_(1)_.jpg" title="" >
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/3._Masjid_Istiqlal_Masjid_Terbesar_di_Asia_Tenggara_(1)_.jpg" alt="" width="385" height="224" class="profil-img" />
+                        </a>
+                                                                                <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/IMG_20150214_170826.jpg" title="" >
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/IMG_20150214_170826.jpg" alt="" width="385" height="224" class="profil-img" />
+                        </a>
+                                                                </div>
+        
+           
+        
+            <fieldset>
+                <legend>PETA MASJID (<a title="Masjid Istiqlal" href="http://simas.kemenag.go.id/index.php/profil/map/masjid/19/?iframe=true&amp;width=1000&amp;height=600" rel="prettyPhoto[iframe]"><small>+ perbesar layar peta</small></a>)</legend>
+                                <iframe src="http://simas.kemenag.go.id/index.php/profil/map/masjid/19/" frameborder="0">
+                    
+                </iframe>
+            </fieldset>
+        
+                
+    </div>
+        
+        
+        <div style="clear: both;float: left;margin: 10px 20px;border-top : 1px solid #bbb;padding-top: 10px;width: 95%;">
+        <h7>MASJID ISTIQLAL</h7>
+        <div style="clear: both;">
+            
+                            
+                                            <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/8249023789_711bf182041.jpg" title="">
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/8249023789_711bf182041.jpg" style="margin: 5px 10px 3px 0; border: 3px solid #979797; float: left;" alt="" width="150" height="115" />
+                        </a>
+                                
+                            
+                                            <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/1086442.jpg" title="">
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/1086442.jpg" style="margin: 5px 10px 3px 0; border: 3px solid #979797; float: left;" alt="" width="150" height="115" />
+                        </a>
+                                
+                            
+                                            <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/68923793.jpg" title="">
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/68923793.jpg" style="margin: 5px 10px 3px 0; border: 3px solid #979797; float: left;" alt="" width="150" height="115" />
+                        </a>
+                                
+                            
+                                            <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/images_(3)2.jpg" title="">
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/images_(3)2.jpg" style="margin: 5px 10px 3px 0; border: 3px solid #979797; float: left;" alt="" width="150" height="115" />
+                        </a>
+                                
+                            
+                                            <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/Istiqlal_Mosque.jpg" title="">
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/Istiqlal_Mosque.jpg" style="margin: 5px 10px 3px 0; border: 3px solid #979797; float: left;" alt="" width="150" height="115" />
+                        </a>
+                                
+                            
+                                            <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/5._Secara_keseluruhan_masjid_Istiqlal_dibangun_di_lahan_seluas_9,5_hektare__.jpg" title="">
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/5._Secara_keseluruhan_masjid_Istiqlal_dibangun_di_lahan_seluas_9,5_hektare__.jpg" style="margin: 5px 10px 3px 0; border: 3px solid #979797; float: left;" alt="" width="150" height="115" />
+                        </a>
+                                
+                            
+                                            <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/10._Masjid_Istiqlal_mempunyai_kegiatan_rutin_harian,_bulanan,_dan_tahunan,_kegiatan_makin_banyak_memasuki_bulan_Ramadan__.jpg" title="">
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/10._Masjid_Istiqlal_mempunyai_kegiatan_rutin_harian,_bulanan,_dan_tahunan,_kegiatan_makin_banyak_memasuki_bulan_Ramadan__.jpg" style="margin: 5px 10px 3px 0; border: 3px solid #979797; float: left;" alt="" width="150" height="115" />
+                        </a>
+                                
+                            
+                                            <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/11._Bagian_kanan,_kiri,_belakang_masjid_Istiqlal_dibuat_bertingkat_sehingga_mampu_menampung_jamaah_lebih_banyak__.jpg" title="">
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/11._Bagian_kanan,_kiri,_belakang_masjid_Istiqlal_dibuat_bertingkat_sehingga_mampu_menampung_jamaah_lebih_banyak__.jpg" style="margin: 5px 10px 3px 0; border: 3px solid #979797; float: left;" alt="" width="150" height="115" />
+                        </a>
+                                
+                            
+                                            <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/13._Kaligrafi_dua_kalimat_syahadat_terpampang_di_bagian_tengah_masjid__.jpg" title="">
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/13._Kaligrafi_dua_kalimat_syahadat_terpampang_di_bagian_tengah_masjid__.jpg" style="margin: 5px 10px 3px 0; border: 3px solid #979797; float: left;" alt="" width="150" height="115" />
+                        </a>
+                                
+                            
+                                            <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/14._Lafadz_Allah_yang_berada_di_bagian_depan_masjid__.jpg" title="">
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/14._Lafadz_Allah_yang_berada_di_bagian_depan_masjid__.jpg" style="margin: 5px 10px 3px 0; border: 3px solid #979797; float: left;" alt="" width="150" height="115" />
+                        </a>
+                                
+                            
+                                            <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/15._Masjid_Istiqlal_mampu_menampung_jamaah_hingga_ribuan_orang__.jpg" title="">
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/15._Masjid_Istiqlal_mampu_menampung_jamaah_hingga_ribuan_orang__.jpg" style="margin: 5px 10px 3px 0; border: 3px solid #979797; float: left;" alt="" width="150" height="115" />
+                        </a>
+                                
+                            
+                                            <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/3._Masjid_Istiqlal_Masjid_Terbesar_di_Asia_Tenggara_(1)_.jpg" title="">
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/3._Masjid_Istiqlal_Masjid_Terbesar_di_Asia_Tenggara_(1)_.jpg" style="margin: 5px 10px 3px 0; border: 3px solid #979797; float: left;" alt="" width="150" height="115" />
+                        </a>
+                                
+                            
+                                            <a rel="prettyPhoto[img]" href="http://simas.kemenag.go.id/public/upload/images/IMG_20150214_170826.jpg" title="">
+                            <img src="http://simas.kemenag.go.id/public/upload/images/medium/IMG_20150214_170826.jpg" style="margin: 5px 10px 3px 0; border: 3px solid #979797; float: left;" alt="" width="150" height="115" />
+                        </a>
+                                
+                            
+                        
+            <div style="clear: both;"></div>
+            
+            <p style="margin: 4.8pt 0cm 6pt; text-align: justify"><strong><span style="font-size: 10pt; font-family: Arial, sans-serif">Masjid Istiqlal</span></strong><span style="font-size: 10pt; font-family: Arial, sans-serif">&nbsp;adalah masjid&nbsp;negara Republik Indonesia&nbsp;yang terletak di pusat ibukota Jakarta. Masjid Istiqlal merupakan masjid terbesar di Asia Tenggara.&nbsp;Pembangunan masjid ini diprakarsai oleh Presiden Republik Indonesia saat itu, Ir. Soekarno. Dimulai dengan terbentuknya Pengurus Harian Yayasan Masjid Istiqlal pada tanggal 7 Desember 1954, dengan Ketua Umum H. Anwar Tjokroaminoto. Pembentukan Yayasan Masjid Istiqlal merupakan kesepakatan dalam pertemuan yang dihadiri sekitar 200 orang ulama dan tokoh-tokoh Islam seluruh Jakarta Raya di bawah pimpinan K.H. Taufiqurrahman <em>(seorang tokoh Masyumi)</em>.&nbsp;&nbsp; </span></p><p style="margin: 4.8pt 0cm 6pt; text-align: justify"><span style="font-size: 10pt; font-family: Arial, sans-serif">Pada 22 Februari 1955 diumumkan melalui surat kabar Sayembara Rencana Gambar Masjid Istiqlal. Ketua Panitia Sayembara ialah Mr. Assaat (mantan Presiden Negara Bagian RI yang berkedudukan di Yogyakarta, dulu Ketua Panitia Pembangunan Masjid Syuhada), dan Ketua Dewan Juri Presiden Republik Indonesia Ir. Soekarno. Pemenang pertama sayembara adalah arsitek Frederich Silaban&nbsp;(seorang Kristen Protestan), memakai sandi &ldquo;Ketuhanan&rdquo;. Pemenang kedua adalah R. Oetoyo, memakai sandi &ldquo;Istighfar&rdquo;. Pemenang ketiga adalah Hans Groenewegen dengan sandi &ldquo;Salam&rdquo;. Pemenang keempat dan kelima, masing-masing lima orang Mahasiswa ITB, memakai sandi &ldquo;Ilham&rdquo;, dan tiga orang Mahasiswa ITB, memakai sandi &ldquo;Khatulistiwa&rdquo;. Dewan Juri memutuskan karya arsitek&nbsp;</span><span style="font-family: Arial, sans-serif; font-size: 13px">Frederich Silaban&nbsp;</span><span style="font-size: 10pt; font-family: Arial, sans-serif">sebagai pemenang, dengan catatan gambar tersebut harus disempurnakan.&nbsp;&nbsp; </span></p><p style="margin: 4.8pt 0cm 6pt; text-align: justify"><span style="font-size: 10pt; font-family: Arial, sans-serif">Pemancangan batu pertama, sebagai tanda dimulainya pembangunan Masjid Istiqlal dilakukan oleh Presiden Soekarno dalam upacara resmi, pada hari Kamis tanggal 24 Agustus 1961. Pembangunan Masjid Istiqlal berjalan lambat dan terhenti sampai bergantinya pemerintahan Presiden Soekarno (orde lama). Panitia Pembangunan Masjid yang ditetapkan dengan Keputusan Presiden RI beberapa kali diganti. Pada tahun 1969 bangunan masjid masih merupakan pilar-pilar beton yang tegak berdiri tanpa atap. Proses Pembangunan Masjid Istiqlal dilanjutkan kembali pada masa pemerintahan orde baru. Presiden Soeharto turun tangan selaku Ketua Penyantun Masjid Istiqlal dengan menyediakan anggaran pembangunan sejak Pelita I hingga Pelita II. </span></p><p style="margin: 4.8pt 0cm 6pt; text-align: justify"><span style="font-size: 10pt; font-family: Arial, sans-serif">Peresmian penggunaan Masjid Istiqlal dilakukan oleh Presiden Soeharto pada tanggal 22 Februari 1978. Sebelum peresmiannya, untuk pertama kalinya Presiden Soeharto bersama para menteri dan ribuan umat Islam di Jakarta telah melaksanakan shalat Idul Fitri di Masjid Istiqlal pada tanggal 30 November 1970 (1 Syawal 1390).</span></p><p style="margin: 4.8pt 0cm 6pt; text-align: justify"><span style="font-size: 10pt; font-family: Arial, sans-serif">Lokasi kompleks masjid ini berada di bekas Taman Wilhelmina, di timur laut lapangan Medan Merdeka&nbsp;yang ditengahnya berdiri<span style="color: windowtext; text-decoration: none">&nbsp;Monumen Nasional</span>&nbsp;(Monas). Di seberang timur masjid ini berdiri Gereja Katedral Jakarta. Bangunan utama masjid ini terdiri dari lima lantai dan satu lantai dasar. Masjid ini memiliki gaya arsitektur modern dengan dinding dan lantai berlapis marmer, dihiasi ornamen geometrik dari baja antikarat. Bangunan utama masjid dimahkotai satu kubah besar berdiameter 45 meter yang ditopang 12 tiang besar. Menara tunggal setinggi total 96,66 meter menjulang di sudut selatan selasar masjid. Masjid ini mampu menampung lebih dari dua ratus ribu jamaah.</span></p><p style="margin: 4.8pt 0cm 6pt; text-align: justify"><span style="font-size: 10pt; font-family: Arial, sans-serif">Selain digunakan sebagai aktivitas ibadah umat Islam,&nbsp;masjid ini juga digunakan sebagai kantor berbagai organisasi Islam di Indonesia, aktivitas sosial, dan kegiatan umum. Masjid ini juga menjadi salah satu daya tarik wisata&nbsp;yang terkenal di Jakarta. Kebanyakan wisatawan yang berkunjung umumnya wisatawan domestik, dan sebagian wisatawan asing yang beragama Islam. Sering kali Masjid Istiqlal mendapat kunjungan dari tamu-tamu negara mulai dari Presiden, Pedana Menteri sampai dengan para Duta Besar negara-negara sahabat. Masyarakat non-Muslim secara umum juga dapat berkunjung ke masjid ini setelah sebelumnya mendapat pembekalan informasi mengenai Islam dan Masjid Istiqlal, meskipun demikian bagian yang boleh dikunjungi kaum non-Muslim terbatas dan harus didampingi pemandu.</span></p><p style="margin: 4.8pt 0cm 6pt; text-align: justify"><span style="font-size: 10pt; font-family: Arial, sans-serif">Pada setiap hari besar Islam seperti Ramadhan, Idul Fitri, Idul Adha, Tahun Baru Hijriah, Maulid Nabi Muhammad&nbsp;dan Isra Mi'raj, Presiden Republik Indonesia selalu mengadakan kegiatan keagamaan di masjid ini yang disiarkan secara langsung melalui televisi nasional (TVRI) dan sebagian televisi swasta. <em>(</em></span><span style="font-size: 8pt; line-height: 115%; font-family: Arial, sans-serif"><em>Adm.Simas/fa)</em></span></p>            
+        </div>
+
+    </div>
+        
+    </div>        
+           
+        <div id="footer">
+            <div></div>
+        </div>  
+
+            </div>
+    </div>
+
+    
+
+</div>
+
+</body>
+</html>

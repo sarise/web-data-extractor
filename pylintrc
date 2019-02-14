@@ -56,12 +56,13 @@ disable=
     attribute-defined-outside-init,
     duplicate-code,
     fixme,
+    format,
     invalid-name,
     missing-docstring,
     protected-access,
     too-few-public-methods,
-    # handled by black
-    format
+    too-many-arguments,
+    too-many-locals
 
 
 [REPORTS]
@@ -323,7 +324,7 @@ max-statements=100
 max-parents=7
 
 # Maximum number of attributes for a class (see R0902).
-max-attributes=11
+max-attributes=20
 
 # Minimum number of public methods for a class (see R0903).
 min-public-methods=2

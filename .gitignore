@@ -3,6 +3,7 @@
 .eggs/
 .idea/
 .tox/
+.DS_Store
 dist/
 htmlcov/
 web_data_extractor.egg-info/
