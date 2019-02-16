@@ -5,6 +5,7 @@ setup(
     install_requires=[
         'beautifulsoup4',
         'enum;python_version<"3.4"',
+        'simplejson',
         'requests',
     ],
     entry_points={

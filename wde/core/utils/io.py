@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import requests
+import simplejson as json
 
 
 def read_file(file_name):
@@ -15,3 +16,7 @@ def get_content(url):
         return page.content.decode('UTF-8')
 
     return None
+
+
+def pretty_print(data):
+    return json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
