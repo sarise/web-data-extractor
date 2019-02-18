@@ -10,7 +10,10 @@ def read_file(file_name):
 
 
 def get_content(url):
-    page = requests.get(url)
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/53.0.2785.143 Safari/537.36'}
+    page = requests.get(url, headers=headers, timeout=10)
 
     if page.status_code == 200:
         return page.content.decode('UTF-8')

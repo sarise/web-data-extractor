@@ -28,32 +28,38 @@ def _extract_provinsi_ids():
     return _parse_ids_from_select_element(html, 'provinsi_id2')
 
 
-def _extract_kabupaten_ids(provinsi_ids):
-    kabupaten_ids = {}
-    for provinsi_id in provinsi_ids:
-        html = get_content(KABUPATEN_SELECT_URL % provinsi_id)
-        result = _parse_ids_from_select_element(html, 'kabupaten_id2')
-        kabupaten_ids.update(result)
-    return kabupaten_ids
+def _extract_kabupaten_ids(provinsi_id):
+    html = get_content(KABUPATEN_SELECT_URL % provinsi_id)
+    return _parse_ids_from_select_element(html, 'kabupaten_id2')
 
 
-def _extract_kecamatan_ids(kabupaten_ids):
-    kecamatan_ids = {}
-    for kabupaten_id in kabupaten_ids:
-        html = get_content(KECAMATAN_SELECT_URL % kabupaten_id)
-        result = _parse_ids_from_select_element(html, 'kecamatan_id')
-        kecamatan_ids.update(result)
-    return kecamatan_ids
+def _extract_kecamatan_ids(kabupaten_id):
+    html = get_content(KECAMATAN_SELECT_URL % kabupaten_id)
+    return _parse_ids_from_select_element(html, 'kecamatan_id')
+
+
+def _merge_dicts(list_):
+    result = {}
+    for dict in list_:
+        result.update(dict)
+    return result
 
 
 def main():
+    # provinsi ids
     provinsi_dict = _extract_provinsi_ids()
     write_json_to_file('provinsi_ids.json', provinsi_dict)
 
-    kabupaten_dict = _extract_kabupaten_ids(provinsi_dict.values())
-    write_json_to_file('kabupaten_ids2.json', kabupaten_dict)
+    # kabupaten ids
+    with Pool(10) as p:
+        records = p.map(_extract_kabupaten_ids, provinsi_dict.values())
+    kabupaten_dict = _merge_dicts(records)
+    write_json_to_file('kabupaten_ids.json', kabupaten_dict)
 
-    kecamatan_dict = _extract_kecamatan_ids(kabupaten_dict.values())
+    # kecamatan ids
+    with Pool(10) as p:
+        records = p.map(_extract_kecamatan_ids, kabupaten_dict.values())
+    kecamatan_dict = _merge_dicts(records)
     write_json_to_file('kecamatan_ids.json', kecamatan_dict)
 
 
