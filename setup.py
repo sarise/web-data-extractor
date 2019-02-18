@@ -11,6 +11,7 @@ setup(
     entry_points={
         'console_scripts': [
             'wde = wde.main:main',
+            'populate_ids = wde.core.parse.masjid.populate_ids:main',
         ],
     },
     tests_require=["pytest"],

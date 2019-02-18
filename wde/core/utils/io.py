@@ -20,3 +20,8 @@ def get_content(url):
 
 def pretty_print(data):
     return json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
+
+
+def write_json_to_file(filename, data):
+    with open(filename, 'w') as f:
+        f.write(pretty_print(data))
