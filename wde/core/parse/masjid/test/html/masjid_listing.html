@@ -1,0 +1,599 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Sistem Informasi Masjid Seluruh Indonesia |  PROFIL MASJID/MUSHALLA</title>
+
+    <link rel="shortcut icon" type="image/ico" href="http://simas.kemenag.go.id/public/styles/icon/favicon.ico" />
+    <link rel="stylesheet" href="http://simas.kemenag.go.id/public/styles/admin/styles.css" type="text/css" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0">
+    
+    <!-- JQUERY -->
+    <script src="http://simas.kemenag.go.id/public/javascript/jquery-1.7.1.min.js" type="text/javascript"></script>
+
+    <!-- PRETTY PHOTO -->
+    <link rel="stylesheet" href="http://simas.kemenag.go.id/public/javascript/prettyPhoto/css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+    <script src="http://simas.kemenag.go.id/public/javascript/prettyPhoto/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- DROPDOWN PLAIN -->
+    <script src="http://simas.kemenag.go.id/public/javascript/jquery.dropdownPlain.js" type="text/javascript"></script>
+    
+    <!-- JQUERY VTIP -->
+    <link rel="stylesheet" href="http://simas.kemenag.go.id/public/javascript/jquery.vtip/css/vtip.css" type="text/css" media="screen" charset="utf-8" />
+    <script src="http://simas.kemenag.go.id/public/javascript/jquery.vtip/vtip-min.js" type="text/javascript" charset="utf-8"></script>
+    
+    <script type="text/javascript">
+        // <![CDATA[
+            var site_url    = "http://simas.kemenag.go.id/index.php" ;
+            var base_url    = "http://simas.kemenag.go.id/" ;
+        // ]]>
+		
+        $(function() {
+            $("a[rel^='prettyPhoto']").prettyPhoto({theme:'facebook'});
+            
+            var provinsi_id2 = 0 ;
+            var kabupaten_id2 = 0 ;
+            var kecamatan_id2 = 0 ;
+
+            if (provinsi_id2) {
+                $("#kab_id2").load("http://simas.kemenag.go.id/index.php/ajax/address/kabupaten/" + provinsi_id2 + "/" + kabupaten_id2 + "/kabupaten_id2" );
+            }
+
+            if (kabupaten_id2) {
+                $("#kec_id2").load("http://simas.kemenag.go.id/index.php/ajax/address/kecamatan/" + kabupaten_id2 + "/" + kecamatan_id2 );
+            }
+
+            $( "#provinsi_id2" ).change(function() {
+                var provinsi_id2   = $("#provinsi_id2").val() ;
+
+                if (provinsi_id2 > 0) {
+                    $("#kab_id2").load("http://simas.kemenag.go.id/index.php/ajax/address/kabupaten/" + provinsi_id2 + "/0" + "/kabupaten_id2" );
+                }
+            });
+
+            $( "#kab_id2" ).change(function() {
+                var kabupaten_id2   = $("#kabupaten_id2").val() ;
+
+                if (kabupaten_id2 > 0) {
+                    $("#kec_id2").load("http://simas.kemenag.go.id/index.php/ajax/address/kecamatan/" + kabupaten_id2 + "/0" );
+                }
+            });      
+            
+            $("#filter").click(function(){
+                $("#search_all").hide() ;
+                $("#search_by_filter").show() ;
+            })
+        });
+        
+        
+
+        function autoSubmit() {
+            var formObject = document.forms['theForm'];
+            formObject.submit();
+        }
+
+        var popUpWin=0;
+        function popUpWindow(URLStr, left, top, width, height)
+        {
+          if(popUpWin)
+          {
+            if(!popUpWin.closed) popUpWin.close();
+          }
+          popUpWin = open(URLStr, 'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width='+800+',height='+600+',left='+left+', top='+top+',screenX='+left+',screenY='+top+'');
+        }
+
+    </script>
+    
+            
+            
+</head>
+
+        
+   <body>
+
+<div id="wrapper" style="width:95%;">
+
+    <div id="wrapper2">
+        <div id="wphead">
+            <div id="wphead1">
+                <a href="http://simas.kemenag.go.id/index.php">
+                    <img src="http://simas.kemenag.go.id/public/styles/admin/images/header-1.jpg" alt="" />
+                </a>
+            </div>
+            <div id="wphead2">
+                <div id="user_info">
+                    <b style="text-shadow: 2px 2px 2px #333;">SIMAS - SISTEM INFORMASI MASJID</b>
+                </div>
+                
+            </div>
+        </div>
+
+    <ul id="adminmenu" class="dropdown">
+        <li>
+            <a href="http://simas.kemenag.go.id/index.php/home/"          class="">BERANDA</a>
+            <ul class="sub_menu" style="width: 130px;">
+                <li><a href="http://simas.kemenag.go.id/index.php/home/"   class="">INFORMASI</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="http://simas.kemenag.go.id/index.php/profil/"        class="current">PROFIL MASJID/MUSHALLA</a>
+            <ul class="sub_menu" style="width: 260px;">
+                                    <li>
+                        <a href="javascript:;">PROFIL MASJID</a>
+                        <ul style="width: 250px;margin-top: 0px;">
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=1&amp;tipologi_name=Masjid Negara"        class="">MASJID NEGARA</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=2&amp;tipologi_name=Masjid Raya"        class="">MASJID RAYA</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=3&amp;tipologi_name=Masjid Agung"        class="">MASJID AGUNG</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=4&amp;tipologi_name=Masjid Besar"        class="">MASJID BESAR</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=5&amp;tipologi_name=Masjid Jami"        class="">MASJID JAMI</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=6&amp;tipologi_name=Masjid Bersejarah"        class="">MASJID BERSEJARAH</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=7&amp;tipologi_name=Masjid di Tempat Publik "        class="">MASJID DI TEMPAT PUBLIK </a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/masjid/?tipologi_id=8&amp;tipologi_name=Masjid Nasional"        class="">MASJID NASIONAL</a></li>
+                                                    </ul>
+                    </li>
+                      
+                                    <li>
+                        <a href="javascript:;">PROFIL MUSHALLA</a>
+                        <ul style="width: 300px;margin-top: 34px;">
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/mushalla/?tipologi_id=2&amp;tipologi_name=Mushalla di tempat Publik"        class="">MUSHALLA DI TEMPAT PUBLIK</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/mushalla/?tipologi_id=3&amp;tipologi_name=Mushalla Perkantoran"        class="">MUSHALLA PERKANTORAN</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/mushalla/?tipologi_id=4&amp;tipologi_name=Mushalla Pendidikan"        class="">MUSHALLA PENDIDIKAN</a></li>
+                                                            <li><a href="http://simas.kemenag.go.id/index.php/profil/mushalla/?tipologi_id=1&amp;tipologi_name=Mushalla Perumahan"        class="">MUSHALLA PERUMAHAN</a></li>
+                                                    </ul>
+                    </li>
+                      
+            </ul>
+            
+        </li>
+        <li>
+            <a href="http://simas.kemenag.go.id/index.php/arsip/"       class="">INFO TERKINI</a>
+        </li>
+        <li>
+            <a href="http://simas.kemenag.go.id/index.php/arsip/?category_id=5"       class="">DOWNLOAD</a>
+        </li>
+        <li>
+            <a href="http://simas.kemenag.go.id/index.php/login/">LOGIN</a>
+        </li>
+
+        
+    </ul>
+
+    <div id="minisub" style="height: 5px;"></div>    
+    
+        
+    <div id="submenu">
+        <table class="widefat" id="widesearch" style="border: none;border-spacing: 0;background: none;">
+            <tr>
+                <td align="right">
+                    <div id="search_all">
+                        <form action="http://simas.kemenag.go.id/index.php/search/" method="get">
+                            <span>PENCARIAN &nbsp;</span>
+                            <input type="text" name="keyword" value=""  />                                &nbsp;    
+                            <input type="submit" name="filter" value="CARI" class="button" />                            <a href="javascript:;" id="filter"><b>Filter + </b></a>
+                        </form>                
+                    </div>
+
+                    <div id="search_by_filter" style="display: none;">
+                        <form action="http://simas.kemenag.go.id/index.php/search/" method="get">
+                            <span>FILTER &nbsp;</span>
+
+                                                            <select name="provinsi_id" id="provinsi_id2" style="width:100px;"><option value="" selected="selected">- pilih provinsi -</option><option value="1">ACEH</option><option value="2">SUMATERA UTARA</option><option value="3">SUMATERA BARAT</option><option value="4">RIAU</option><option value="5">JAMBI</option><option value="6">SUMATERA SELATAN</option><option value="7">BENGKULU</option><option value="8">LAMPUNG</option><option value="9">KEP. BANGKA BELITUNG</option><option value="10">KEPULAUAN RIAU</option><option value="11">DKI JAKARTA</option><option value="12">BANTEN</option><option value="13">JAWA BARAT</option><option value="14">JAWA TENGAH</option><option value="15">D.I YOGYAKARTA</option><option value="16">JAWA TIMUR</option><option value="17">BALI</option><option value="18">NUSA TENGGARA BARAT</option><option value="19">NUSA TENGGARA TIMUR</option><option value="20">KALIMANTAN BARAT</option><option value="21">KALIMANTAN TENGAH</option><option value="22">KALIMANTAN SELATAN</option><option value="23">KALIMANTAN TIMUR</option><option value="24">SULAWESI UTARA</option><option value="25">SULAWESI TENGAH</option><option value="26">SULAWESI SELATAN</option><option value="27">SULAWESI TENGGARA</option><option value="28">GORONTALO</option><option value="29">SULAWESI BARAT</option><option value="30">MALUKU</option><option value="31">MALUKU UTARA</option><option value="32">P A P U A</option><option value="33">PAPUA BARAT</option><option value="34">KALIMANTAN UTARA</option></select>                            
+                                                            <span id="kab_id2"><select name="kbid" style="width: 100px;"></select></span>
+                            
+                                                            <span id="kec_id2"><select name="kcid" style="width:100px;"></select></span>
+                                
+
+                            <select name="tipologi_id" style="width:100px;"><option value="" selected="selected">- Tipologi -</option><option value="1">Masjid Negara</option><option value="2">Masjid Raya</option><option value="3">Masjid Agung</option><option value="4">Masjid Besar</option><option value="5">Masjid Jami</option><option value="6">Masjid Bersejarah</option><option value="7">Masjid di Tempat Publik </option><option value="8">Masjid Nasional</option></select>                                &nbsp;
+                            <input type="text" name="keyword" value="" placeholder="ANY KEY" style="width:100px;"  />                                &nbsp;    
+                            <input type="submit" name="filter" value="FILTER" class="button" style="padding:3px 10px;" />                        </form>               
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+        
+    <div id="wrapper-shadow">
+<div class="wrap" style="width: 98%;padding-left: 1%;padding-right: 1%;">
+    <h2 style="text-align: center;">
+        DAFTAR PROFIL MASJID    </h2>
+
+    <table class="widefat" style="border: none;border-spacing: 0;">
+        <tr>
+            <td align="right">
+                <form action="http://simas.kemenag.go.id/index.php/profil/masjid/" method="get">
+                    <select name="provinsi_id"><option value="" selected="selected">- pilih provinsi -</option><option value="1">ACEH</option><option value="2">SUMATERA UTARA</option><option value="3">SUMATERA BARAT</option><option value="4">RIAU</option><option value="5">JAMBI</option><option value="6">SUMATERA SELATAN</option><option value="7">BENGKULU</option><option value="8">LAMPUNG</option><option value="9">KEP. BANGKA BELITUNG</option><option value="10">KEPULAUAN RIAU</option><option value="11">DKI JAKARTA</option><option value="12">BANTEN</option><option value="13">JAWA BARAT</option><option value="14">JAWA TENGAH</option><option value="15">D.I YOGYAKARTA</option><option value="16">JAWA TIMUR</option><option value="17">BALI</option><option value="18">NUSA TENGGARA BARAT</option><option value="19">NUSA TENGGARA TIMUR</option><option value="20">KALIMANTAN BARAT</option><option value="21">KALIMANTAN TENGAH</option><option value="22">KALIMANTAN SELATAN</option><option value="23">KALIMANTAN TIMUR</option><option value="24">SULAWESI UTARA</option><option value="25">SULAWESI TENGAH</option><option value="26">SULAWESI SELATAN</option><option value="27">SULAWESI TENGGARA</option><option value="28">GORONTALO</option><option value="29">SULAWESI BARAT</option><option value="30">MALUKU</option><option value="31">MALUKU UTARA</option><option value="32">P A P U A</option><option value="33">PAPUA BARAT</option><option value="34">KALIMANTAN UTARA</option></select>                        &nbsp;
+                    <input type="text" name="keyword" value=""  />                        &nbsp;
+                    
+<input type="hidden" name="tipologi_id" value="" />
+    
+                    <input type="submit" name="filter" value="Cari" class="button" />                </form>                
+            </td>
+        </tr>
+    </table>
+
+        
+    <br />
+    
+    <div style="overflow: auto;">
+    
+    <table class="widefat border" style="border: 1px solid #000; border-collapse: collapse;width: 150%;">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 2%;" rowspan="2">NO</th>
+                <th scope="col" rowspan="2">KAB/KOTA</th>
+                <th scope="col" rowspan="2">KECAMATAN</th>
+                <th scope="col" rowspan="2">NAMA MASJID</th>
+                <th scope="col" rowspan="2">ID MASJID</th>
+                <th scope="col" rowspan="2">TIPOLOGI</th>
+                <th scope="col" rowspan="2">ALAMAT</th>
+                <th scope="col" rowspan="2">LUAS TANAH</th>
+                <th scope="col" rowspan="2">STATUS TANAH</th>
+                <th scope="col" rowspan="2">LUAS BANGUNAN</th>
+                <th scope="col" rowspan="2">TAHUN BERDIRI</th>
+                <!--
+                <th scope="col" rowspan="2">DAYA TAMPUNG JAMAAH</th>
+                -->
+                
+                <th scope="col" colspan="5">JUMLAH SDM</th>
+                <th scope="col" rowspan="2">NO. TELP/HP</th>
+                <th scope="col" rowspan="2">KETERANGAN</th>
+            </tr>
+            <tr>
+                <th scope="col">JAMAAH</th>
+                <th scope="col">IMAM</th>
+                <th scope="col">KHATIB</th>
+                <th scope="col">MUAZIN</th>
+                <th scope="col">REMAJA</th>
+            </tr>
+            <tr>
+                                    <th scope="col"><em>1</em></th>
+                                    <th scope="col"><em>2</em></th>
+                                    <th scope="col"><em>3</em></th>
+                                    <th scope="col"><em>4</em></th>
+                                    <th scope="col"><em>5</em></th>
+                                    <th scope="col"><em>6</em></th>
+                                    <th scope="col"><em>7</em></th>
+                                    <th scope="col"><em>8</em></th>
+                                    <th scope="col"><em>9</em></th>
+                                    <th scope="col"><em>10</em></th>
+                                    <th scope="col"><em>11</em></th>
+                                    <th scope="col"><em>12</em></th>
+                                    <th scope="col"><em>13</em></th>
+                                    <th scope="col"><em>14</em></th>
+                                    <th scope="col"><em>15</em></th>
+                                    <th scope="col"><em>16</em></th>
+                                    <th scope="col"><em>17</em></th>
+                                    <th scope="col"><em>18</em></th>
+                            </tr>
+        </thead>
+        <tbody id="the-list">
+                    <tr>
+                <td valign="top" align="right">1.</td>
+                <td valign="top">KAB MALUKU TENGGARA BARAT</td>
+                <td valign="top">Tanimbar Utara</td>
+                <td valign="top"><a href="http://simas.kemenag.go.id/index.php/profil/masjid/276481/">Masjid masjid babussalam</a></td>
+                <td valign="top">01.3.30.03.05.000003</td>
+                <td valign="top">Masjid Besar</td>
+                <td valign="top">Desa karatat</td>
+                <td valign="top">1.050 m<sup>2</sup></td>
+                <td valign="top" align="center">Wakaf</td>
+                <td valign="top">340 m<sup>2</sup></td>
+                <td valign="top" align="center">1968</td>
+                <!--
+                <td valign="top" align="right">500</td>
+                -->
+                
+                <td valign="top" align="center">> 200</td>
+                <!--
+                <td valign="top" align="center">-1.8015</td>
+                <td valign="top" align="center">116.1475</td>
+                -->
+                
+                <td valign="top" align="right">1</td>
+                <td valign="top" align="right">2</td>
+                <td valign="top" align="right">3</td>
+                <td valign="top" align="right">-</td>
+                <td valign="top"></td>
+                <td valign="top"></td>
+                
+            </tr>
+                    <tr class="alternate">
+                <td valign="top" align="right">2.</td>
+                <td valign="top">KAB MALUKU TENGGARA BARAT</td>
+                <td valign="top">Tanimbar Utara</td>
+                <td valign="top"><a href="http://simas.kemenag.go.id/index.php/profil/masjid/276480/">Masjid Masjid as-syuhada</a></td>
+                <td valign="top">01.4.30.03.05.000002</td>
+                <td valign="top">Masjid Jami</td>
+                <td valign="top">Desa labobar</td>
+                <td valign="top">1.600 m<sup>2</sup></td>
+                <td valign="top" align="center">Wakaf</td>
+                <td valign="top">300 m<sup>2</sup></td>
+                <td valign="top" align="center">1967</td>
+                <!--
+                <td valign="top" align="right">500</td>
+                -->
+                
+                <td valign="top" align="center">> 200</td>
+                <!--
+                <td valign="top" align="center">-1.8015</td>
+                <td valign="top" align="center">116.1475</td>
+                -->
+                
+                <td valign="top" align="right">1</td>
+                <td valign="top" align="right">2</td>
+                <td valign="top" align="right">3</td>
+                <td valign="top" align="right">-</td>
+                <td valign="top"></td>
+                <td valign="top"></td>
+                
+            </tr>
+                    <tr>
+                <td valign="top" align="right">3.</td>
+                <td valign="top">KAB MALUKU TENGGARA BARAT</td>
+                <td valign="top">Tanimbar Selatan</td>
+                <td valign="top"><a href="http://simas.kemenag.go.id/index.php/profil/masjid/276479/">Masjid masjid babut taqwa</a></td>
+                <td valign="top">01.4.30.03.01.000006</td>
+                <td valign="top">Masjid Jami</td>
+                <td valign="top">Kampung bugis larat</td>
+                <td valign="top">1.189 m<sup>2</sup></td>
+                <td valign="top" align="center">Wakaf</td>
+                <td valign="top">150 m<sup>2</sup></td>
+                <td valign="top" align="center">2010</td>
+                <!--
+                <td valign="top" align="right">200</td>
+                -->
+                
+                <td valign="top" align="center">> 200</td>
+                <!--
+                <td valign="top" align="center">-1.8015</td>
+                <td valign="top" align="center">116.1475</td>
+                -->
+                
+                <td valign="top" align="right">2</td>
+                <td valign="top" align="right">2</td>
+                <td valign="top" align="right">3</td>
+                <td valign="top" align="right">-</td>
+                <td valign="top">0812475002864</td>
+                <td valign="top"></td>
+                
+            </tr>
+                    <tr class="alternate">
+                <td valign="top" align="right">4.</td>
+                <td valign="top">KAB MALUKU TENGGARA BARAT</td>
+                <td valign="top">Tanimbar Selatan</td>
+                <td valign="top"><a href="http://simas.kemenag.go.id/index.php/profil/masjid/276478/">Masjid masjid ataqwa</a></td>
+                <td valign="top">01.4.30.03.01.000005</td>
+                <td valign="top">Masjid Jami</td>
+                <td valign="top">Kampung bugis larat</td>
+                <td valign="top">1.189 m<sup>2</sup></td>
+                <td valign="top" align="center">Wakaf</td>
+                <td valign="top">150 m<sup>2</sup></td>
+                <td valign="top" align="center">2010</td>
+                <!--
+                <td valign="top" align="right">200</td>
+                -->
+                
+                <td valign="top" align="center">> 200</td>
+                <!--
+                <td valign="top" align="center">-1.8015</td>
+                <td valign="top" align="center">116.1475</td>
+                -->
+                
+                <td valign="top" align="right">2</td>
+                <td valign="top" align="right">2</td>
+                <td valign="top" align="right">3</td>
+                <td valign="top" align="right">-</td>
+                <td valign="top">0812475002864</td>
+                <td valign="top"></td>
+                
+            </tr>
+                    <tr>
+                <td valign="top" align="right">5.</td>
+                <td valign="top">KAB MALUKU TENGGARA BARAT</td>
+                <td valign="top">Tanimbar Utara</td>
+                <td valign="top"><a href="http://simas.kemenag.go.id/index.php/profil/masjid/276477/">Masjid masjid ataqwa</a></td>
+                <td valign="top">01.3.30.03.05.000001</td>
+                <td valign="top">Masjid Besar</td>
+                <td valign="top">Kampung bugis larat</td>
+                <td valign="top">459 m<sup>2</sup></td>
+                <td valign="top" align="center">Wakaf</td>
+                <td valign="top">261 m<sup>2</sup></td>
+                <td valign="top" align="center">1967</td>
+                <!--
+                <td valign="top" align="right">290</td>
+                -->
+                
+                <td valign="top" align="center">> 200</td>
+                <!--
+                <td valign="top" align="center">-1.8015</td>
+                <td valign="top" align="center">116.1475</td>
+                -->
+                
+                <td valign="top" align="right">1</td>
+                <td valign="top" align="right">1</td>
+                <td valign="top" align="right">2</td>
+                <td valign="top" align="right">-</td>
+                <td valign="top">081247307396</td>
+                <td valign="top"></td>
+                
+            </tr>
+                    <tr class="alternate">
+                <td valign="top" align="right">6.</td>
+                <td valign="top">KAB. KEPULAUAN ARU</td>
+                <td valign="top">Sir-Sir</td>
+                <td valign="top"><a href="http://simas.kemenag.go.id/index.php/profil/masjid/276476/">Masjid Nurul Islamiyah</a></td>
+                <td valign="top">01.4.30.07.06.000003</td>
+                <td valign="top">Masjid Jami</td>
+                <td valign="top">Desa Mohong Sel</td>
+                <td valign="top">300 m<sup>2</sup></td>
+                <td valign="top" align="center">Wakaf</td>
+                <td valign="top">144 m<sup>2</sup></td>
+                <td valign="top" align="center">1997</td>
+                <!--
+                <td valign="top" align="right">140</td>
+                -->
+                
+                <td valign="top" align="center">100 - 150</td>
+                <!--
+                <td valign="top" align="center">-1.8015</td>
+                <td valign="top" align="center">116.1475</td>
+                -->
+                
+                <td valign="top" align="right">1</td>
+                <td valign="top" align="right">1</td>
+                <td valign="top" align="right">1</td>
+                <td valign="top" align="right">-</td>
+                <td valign="top"></td>
+                <td valign="top"></td>
+                
+            </tr>
+                    <tr>
+                <td valign="top" align="right">7.</td>
+                <td valign="top">KAB MALUKU TENGGARA BARAT</td>
+                <td valign="top">Tanimbar Selatan</td>
+                <td valign="top"><a href="http://simas.kemenag.go.id/index.php/profil/masjid/276475/">Masjid masjid al-iqlas polres</a></td>
+                <td valign="top">01.4.30.03.01.000004</td>
+                <td valign="top">Masjid Jami</td>
+                <td valign="top">Polres MTB saumlaki</td>
+                <td valign="top">304 m<sup>2</sup></td>
+                <td valign="top" align="center">Wakaf</td>
+                <td valign="top">110 m<sup>2</sup></td>
+                <td valign="top" align="center">2008</td>
+                <!--
+                <td valign="top" align="right">200</td>
+                -->
+                
+                <td valign="top" align="center">150 - 200</td>
+                <!--
+                <td valign="top" align="center">-1.8015</td>
+                <td valign="top" align="center">116.1475</td>
+                -->
+                
+                <td valign="top" align="right">2</td>
+                <td valign="top" align="right">2</td>
+                <td valign="top" align="right">3</td>
+                <td valign="top" align="right">-</td>
+                <td valign="top">081340442864</td>
+                <td valign="top"></td>
+                
+            </tr>
+                    <tr class="alternate">
+                <td valign="top" align="right">8.</td>
+                <td valign="top">KAB. KEPULAUAN ARU</td>
+                <td valign="top">Sir-Sir</td>
+                <td valign="top"><a href="http://simas.kemenag.go.id/index.php/profil/masjid/276474/">Masjid Jabal Qubais</a></td>
+                <td valign="top">01.4.30.07.06.000002</td>
+                <td valign="top">Masjid Jami</td>
+                <td valign="top">Desa Waifual</td>
+                <td valign="top">400 m<sup>2</sup></td>
+                <td valign="top" align="center">Wakaf</td>
+                <td valign="top">64 m<sup>2</sup></td>
+                <td valign="top" align="center">2006</td>
+                <!--
+                <td valign="top" align="right">100</td>
+                -->
+                
+                <td valign="top" align="center">50 - 100</td>
+                <!--
+                <td valign="top" align="center">-1.8015</td>
+                <td valign="top" align="center">116.1475</td>
+                -->
+                
+                <td valign="top" align="right">1</td>
+                <td valign="top" align="right">1</td>
+                <td valign="top" align="right">1</td>
+                <td valign="top" align="right">-</td>
+                <td valign="top"></td>
+                <td valign="top"></td>
+                
+            </tr>
+                    <tr>
+                <td valign="top" align="right">9.</td>
+                <td valign="top">KAB. KEPULAUAN ARU</td>
+                <td valign="top">Sir-Sir</td>
+                <td valign="top"><a href="http://simas.kemenag.go.id/index.php/profil/masjid/276473/">Masjid Nurul Iman</a></td>
+                <td valign="top">01.4.30.07.06.000001</td>
+                <td valign="top">Masjid Jami</td>
+                <td valign="top">Desa Leiting</td>
+                <td valign="top">2.500 m<sup>2</sup></td>
+                <td valign="top" align="center">Wakaf</td>
+                <td valign="top">256 m<sup>2</sup></td>
+                <td valign="top" align="center">1963</td>
+                <!--
+                <td valign="top" align="right">180</td>
+                -->
+                
+                <td valign="top" align="center">150 - 200</td>
+                <!--
+                <td valign="top" align="center">-1.8015</td>
+                <td valign="top" align="center">116.1475</td>
+                -->
+                
+                <td valign="top" align="right">2</td>
+                <td valign="top" align="right">1</td>
+                <td valign="top" align="right">1</td>
+                <td valign="top" align="right">10</td>
+                <td valign="top"></td>
+                <td valign="top"></td>
+                
+            </tr>
+                    <tr class="alternate">
+                <td valign="top" align="right">10.</td>
+                <td valign="top">KAB. KEPULAUAN ARU</td>
+                <td valign="top">Pulau-Pulau Aru</td>
+                <td valign="top"><a href="http://simas.kemenag.go.id/index.php/profil/masjid/276472/">Masjid Baiturrahman</a></td>
+                <td valign="top">01.4.30.07.01.000009</td>
+                <td valign="top">Masjid Jami</td>
+                <td valign="top">Jl. Pertamina Polres Kepulauan Aru</td>
+                <td valign="top">450 m<sup>2</sup></td>
+                <td valign="top" align="center">SHM</td>
+                <td valign="top">289 m<sup>2</sup></td>
+                <td valign="top" align="center">2013</td>
+                <!--
+                <td valign="top" align="right">650</td>
+                -->
+                
+                <td valign="top" align="center">> 200</td>
+                <!--
+                <td valign="top" align="center">-5.7868</td>
+                <td valign="top" align="center">134.211</td>
+                -->
+                
+                <td valign="top" align="right">1</td>
+                <td valign="top" align="right">1</td>
+                <td valign="top" align="right">1</td>
+                <td valign="top" align="right">27</td>
+                <td valign="top">082199210601</td>
+                <td valign="top"></td>
+                
+            </tr>
+        
+            <tr>
+                <th scope="row" colspan="18" style="vertical-align: top;">
+                    <div class="paging">
+                        &nbsp;<strong>1</strong>&nbsp;<a href="http://simas.kemenag.go.id/index.php/profil/masjid/page/10">2</a>&nbsp;<a href="http://simas.kemenag.go.id/index.php/profil/masjid/page/20">3</a>&nbsp;<a href="http://simas.kemenag.go.id/index.php/profil/masjid/page/10">&gt;</a>&nbsp;&nbsp;<a href="http://simas.kemenag.go.id/index.php/profil/masjid/page/250320">Last &rsaquo;</a>                    </div>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+        
+    </div>
+    
+    <br />
+    
+    </div>        
+           
+        <div id="footer">
+            <div></div>
+        </div>  
+
+            </div>
+    </div>
+
+    
+
+</div>
+
+</body>
+</html>
