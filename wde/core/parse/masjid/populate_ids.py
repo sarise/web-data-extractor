@@ -9,10 +9,10 @@ from bs4 import BeautifulSoup
 from wde.core.utils.io import get_content, write_json_to_file
 
 SEARCH_URL = 'http://simas.kemenag.go.id/index.php/search/'
-KABUPATEN_SELECT_URL = 'http://simas.kemenag.go.id/index.php/ajax/address/kabupaten/%d/0/kabupaten_id2'  # provinsi id
-KECAMATAN_SELECT_URL = 'http://simas.kemenag.go.id/index.php/ajax/address/kecamatan/%d/0'  # kecamatan id
+KABUPATEN_SELECT_URL = 'http://simas.kemenag.go.id/index.php/ajax/address/kabupaten/%s/0/kabupaten_id2'  # provinsi id
+KECAMATAN_SELECT_URL = 'http://simas.kemenag.go.id/index.php/ajax/address/kecamatan/%s/0'  # kecamatan id
 
-NameId = namedtuple('NameId', ['name', 'id'])
+NameId = namedtuple('NameId', ['id', 'name'])
 
 
 def _parse_ids_from_select_element(content, select_id):
@@ -23,7 +23,7 @@ def _parse_ids_from_select_element(content, select_id):
     for option in selection.find_all('option'):
         id_ = option.get('value')
         if id_:
-            ids[option.text] = int(id_)
+            ids[id_] = option.text
     return ids
 
 
@@ -38,15 +38,15 @@ def _extract_provinsi_ids():
 
 
 def _extract_kabupaten_ids(provinsi):
-    name, id_ = provinsi
-    html = get_content(KABUPATEN_SELECT_URL % id_)
-    return _parse_ids_from_select_element(html, 'kabupaten_id'), NameId(name, id_)
+    name_id = NameId(*provinsi)
+    html = get_content(KABUPATEN_SELECT_URL % name_id.id)
+    return _parse_ids_from_select_element(html, 'kabupaten_id'), name_id
 
 
 def _extract_kecamatan_ids(kabupaten):
-    name, id_ = kabupaten
-    html = get_content(KECAMATAN_SELECT_URL % id_)
-    return _parse_ids_from_select_element(html, 'kecamatan_id'), NameId(name, id_)
+    name_id = NameId(*kabupaten)
+    html = get_content(KECAMATAN_SELECT_URL % name_id.id)
+    return _parse_ids_from_select_element(html, 'kecamatan_id'), name_id
 
 
 def _merge_outputs(outputs):
@@ -100,9 +100,9 @@ def main():
     kecamatan_dict, kabupaten_to_kecamatan_name_ids = _merge_outputs(records)
     write_json_to_file('kecamatan_ids.json', kecamatan_dict)
 
-    assert len(kecamatan_dict) == 6576
-
     _write_relations_to_csv(provinsi_to_kabupaten_name_ids, kabupaten_to_kecamatan_name_ids)
+
+    assert len(kecamatan_dict) == 6947
 
 if __name__ == '__main__':
     main()
