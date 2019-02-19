@@ -17,7 +17,7 @@ NameId = namedtuple('NameId', ['name', 'id'])
 
 def _parse_ids_from_select_element(content, select_id):
     soup = BeautifulSoup(content, 'html.parser')
-    selection = soup.find('select', id=select_id)
+    selection = soup.find('select', attrs={'name': select_id})
 
     ids = {}
     for option in selection.find_all('option'):
@@ -27,15 +27,20 @@ def _parse_ids_from_select_element(content, select_id):
     return ids
 
 
+def _extract_tipologi_ids():
+    html = get_content(SEARCH_URL)
+    return _parse_ids_from_select_element(html, 'tipologi_id')
+
+
 def _extract_provinsi_ids():
     html = get_content(SEARCH_URL)
-    return _parse_ids_from_select_element(html, 'provinsi_id2')
+    return _parse_ids_from_select_element(html, 'provinsi_id')
 
 
 def _extract_kabupaten_ids(provinsi):
     name, id_ = provinsi
     html = get_content(KABUPATEN_SELECT_URL % id_)
-    return _parse_ids_from_select_element(html, 'kabupaten_id2'), NameId(name, id_)
+    return _parse_ids_from_select_element(html, 'kabupaten_id'), NameId(name, id_)
 
 
 def _extract_kecamatan_ids(kabupaten):
@@ -73,7 +78,12 @@ def _write_relations_to_csv(prov_to_kab, kab_to_kec):
                         'kecamatan_id': kecamatan.id,
                     })
 
+
 def main():
+    # tipologi ids
+    tipologi_dict = _extract_tipologi_ids()
+    write_json_to_file('tipologi_ids.json', tipologi_dict)
+
     # provinsi ids
     provinsi_dict = _extract_provinsi_ids()
     write_json_to_file('provinsi_ids.json', provinsi_dict)
@@ -89,6 +99,8 @@ def main():
         records = p.map(_extract_kecamatan_ids, kabupaten_dict.items())
     kecamatan_dict, kabupaten_to_kecamatan_name_ids = _merge_outputs(records)
     write_json_to_file('kecamatan_ids.json', kecamatan_dict)
+
+    assert len(kecamatan_dict) == 6576
 
     _write_relations_to_csv(provinsi_to_kabupaten_name_ids, kabupaten_to_kecamatan_name_ids)
 
