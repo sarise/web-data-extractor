@@ -27,9 +27,11 @@ def _parse_ids_from_select_element(content, select_id):
     return ids
 
 
-def _extract_tipologi_ids():
+def extract_tipologi_ids():
     html = get_content(SEARCH_URL)
-    return _parse_ids_from_select_element(html, 'tipologi_id')
+    mapping = _parse_ids_from_select_element(html, 'tipologi_id')
+    # Invert the mapping as it's used to translate from name to id
+    return {v: k for k, v in mapping.items()}
 
 
 def _extract_provinsi_ids():
@@ -81,7 +83,7 @@ def _write_relations_to_csv(prov_to_kab, kab_to_kec):
 
 def main():
     # tipologi ids
-    tipologi_dict = _extract_tipologi_ids()
+    tipologi_dict = extract_tipologi_ids()
     write_json_to_file('tipologi_ids.json', tipologi_dict)
 
     # provinsi ids

@@ -11,6 +11,8 @@ MASJID_TABLE_URL = 'http://simas.kemenag.go.id/index.php/profil/masjid/%s'      
 
 class Parser:
 
+    tipologi_to_id_mapping
+
     @classmethod
     def extract(cls, content, url_id=None):
         soup = BeautifulSoup(content, 'html.parser').find('div', class_='wrap')
