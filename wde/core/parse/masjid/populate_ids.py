@@ -3,6 +3,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import csv
 from collections import namedtuple
 from multiprocessing.pool import Pool
+from repoze.lru import lru_cache
 
 from bs4 import BeautifulSoup
 
@@ -27,6 +28,7 @@ def _parse_ids_from_select_element(content, select_id):
     return ids
 
 
+@lru_cache(maxsize=1)
 def extract_tipologi_ids():
     html = get_content(SEARCH_URL)
     mapping = _parse_ids_from_select_element(html, 'tipologi_id')

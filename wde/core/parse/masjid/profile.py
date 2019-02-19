@@ -4,6 +4,7 @@ import re
 from bs4 import BeautifulSoup
 
 from wde.core.elements.masjid import Masjid
+from wde.core.parse.masjid.populate_ids import extract_tipologi_ids
 
 MASJID_PROFILE_URL = 'http://simas.kemenag.go.id/index.php/profil/masjid/%s/'   # masjid_id
 MASJID_TABLE_URL = 'http://simas.kemenag.go.id/index.php/profil/masjid/%s'      # table iterator
@@ -11,7 +12,7 @@ MASJID_TABLE_URL = 'http://simas.kemenag.go.id/index.php/profil/masjid/%s'      
 
 class Parser:
 
-    tipologi_to_id_mapping
+    tipologi_to_id_mapping = extract_tipologi_ids()
 
     @classmethod
     def extract(cls, content, url_id=None):
@@ -23,6 +24,7 @@ class Parser:
         name = div_logo.find('h6').text
         address = div_logo.find_all('div')[-1].text.strip()
         tipologi = div_title.find('div', id='tip').find('a').text
+        tipologi_id = cls.tipologi_to_id_mapping[tipologi]
 
         # Sub-heading bar
         div_alamat = soup.find('h5').find_all('a', href=True)
@@ -57,6 +59,7 @@ class Parser:
             kecamatan=kecamatan,
             kecamatan_id=kecamatan_id,
             tipologi=tipologi,
+            tipologi_id=tipologi_id,
             luas_tanah=cls._sanitize_luas(luas_tanah),
             status_tanah=status_tanah,
             luas_bangunan=cls._sanitize_luas(luas_bangunan),

@@ -16,8 +16,8 @@ class Tipologi(Enum):
 
 class Masjid:
     def __init__(self, id_, name, url_id, address, provinsi, provinsi_id, kabupaten, kabupaten_id, kecamatan,
-                 kecamatan_id, tipologi, luas_tanah, status_tanah, luas_bangunan, tahun_berdiri, capacity, contact,
-                 jumlah_pengurus, jumlah_imam, jumlah_khatib, facilities, activities):
+                 kecamatan_id, tipologi, tipologi_id, luas_tanah, status_tanah, luas_bangunan, tahun_berdiri, capacity,
+                 contact, jumlah_pengurus, jumlah_imam, jumlah_khatib, facilities, activities):
         self.id_ = id_
         self.name = name
         self.url_id = url_id
@@ -29,6 +29,7 @@ class Masjid:
         self.kecamatan = kecamatan
         self.kecamatan_id = kecamatan_id
         self.tipologi = tipologi
+        self.tipologi_id = tipologi_id
         self.luas_tanah = luas_tanah
         self.status_tanah = status_tanah
         self.luas_bangunan = luas_bangunan

@@ -7,6 +7,7 @@ setup(
         'enum;python_version<"3.4"',
         'simplejson',
         'requests',
+        'repoze.lru',
     ],
     entry_points={
         'console_scripts': [

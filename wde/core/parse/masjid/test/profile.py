@@ -64,6 +64,7 @@ def test_from_file1():
         "status_tanah": "SHM",
         "tahun_berdiri": "1978",
         "tipologi": "Masjid Negara",
+        "tipologi_id": "1",
         "url_id": '275733',
     }
 
@@ -109,6 +110,7 @@ def test_from_file2():
         "status_tanah": "Wakaf",
         "tahun_berdiri": "1980",
         "tipologi": "Masjid Jami",
+        "tipologi_id": "5",
         "url_id": None,
     }
 
