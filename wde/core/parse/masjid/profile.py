@@ -23,10 +23,10 @@ class Parser:
         tipologi = div_title.find('div', id='tip').find('a').text
 
         # Sub-heading bar
-        div_alamat = soup.find('h5').find_all('a')
-        provinsi = div_alamat[0].text
-        kabupaten = div_alamat[1].text
-        kecamatan = div_alamat[2].text
+        div_alamat = soup.find('h5').find_all('a', href=True)
+        provinsi, provinsi_id = div_alamat[0].text, div_alamat[0]['href'].split('=')[-1]
+        kabupaten, kabupaten_id = div_alamat[1].text, div_alamat[1]['href'].split('=')[-1]
+        kecamatan, kecamatan_id = div_alamat[2].text, div_alamat[2]['href'].split('=')[-1]
 
         # Table
         tds = soup.find('table', id='profil-table').find_all('td')
@@ -49,8 +49,11 @@ class Parser:
             url_id=url_id,
             address=address,
             provinsi=provinsi,
+            provinsi_id=provinsi_id,
             kabupaten=kabupaten,
+            kabupaten_id=kabupaten_id,
             kecamatan=kecamatan,
+            kecamatan_id=kecamatan_id,
             tipologi=tipologi,
             luas_tanah=cls._sanitize_luas(luas_tanah),
             status_tanah=status_tanah,
