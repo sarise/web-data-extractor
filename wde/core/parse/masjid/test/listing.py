@@ -38,4 +38,3 @@ def test_listing_extract(source):
     result = ListingParser.extract(source())
     assert len(result) == 10
     assert all([isinstance(sdm, SDM) for sdm in result.values()])
-    assert result['276472'] == SDM(jamaah='> 200', imam='1', khatib='1', muazin='1', remaja='27')
