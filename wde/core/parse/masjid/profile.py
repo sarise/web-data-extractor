@@ -1,6 +1,8 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import re
+import traceback
+
 from bs4 import BeautifulSoup
 
 from wde.core.elements.masjid import Masjid
@@ -18,32 +20,37 @@ class Parser:
     def extract(cls, content, url_id=None):
         soup = BeautifulSoup(content, 'html.parser').find('div', class_='wrap')
 
-        # Top heading bar
-        div_title = soup.find('div', id='profil-title')
-        div_logo = div_title.find('div', id=re.compile(r'^logo(|\-mushalla)$'))
-        name = div_logo.find('h6').text
-        address = div_logo.find_all('div')[-1].text.strip()
-        tipologi = div_title.find('div', id='tip').find('a').text
-        tipologi_id = cls.tipologi_to_id_mapping[tipologi]
+        try:
+            # Top heading bar
+            div_title = soup.find('div', id='profil-title')
+            div_logo = div_title.find('div', id=re.compile(r'^logo(|\-mushalla)$'))
+            name = div_logo.find('h6').text
+            address = div_logo.find_all('div')[-1].text.strip()
+            tipologi = div_title.find('div', id='tip').find('a').text
+            tipologi_id = cls.tipologi_to_id_mapping[tipologi]
 
-        # Sub-heading bar
-        div_alamat = soup.find('h5').find_all('a', href=True)
-        provinsi, provinsi_id = div_alamat[0].text, div_alamat[0]['href'].split('=')[-1]
-        kabupaten, kabupaten_id = div_alamat[1].text, div_alamat[1]['href'].split('=')[-1]
-        kecamatan, kecamatan_id = div_alamat[2].text, div_alamat[2]['href'].split('=')[-1]
+            # Sub-heading bar
+            div_alamat = soup.find('h5').find_all('a', href=True)
+            provinsi, provinsi_id = div_alamat[0].text, div_alamat[0]['href'].split('=')[-1]
+            kabupaten, kabupaten_id = div_alamat[1].text, div_alamat[1]['href'].split('=')[-1]
+            kecamatan, kecamatan_id = div_alamat[2].text, div_alamat[2]['href'].split('=')[-1]
 
-        # Table
-        tds = soup.find('table', id='profil-table').find_all('td')
-        id_ = tds[0].text.strip()
-        luas_tanah = tds[1].text
-        status_tanah = tds[2].text
-        luas_bangunan = tds[3].text
-        tahun_berdiri = tds[4].text
-        capacity = tds[5].text
-        contact = tds[6].text.strip()
-        facilities = cls._sanitize_string_list(tds[7].text)
-        activities = cls._sanitize_activities(tds[8].text)
-        jumlah_pengurus = cls._sanitize_int(tds[9].text)
+            # Table
+            tds = soup.find('table', id='profil-table').find_all('td')
+            id_ = tds[0].text.strip()
+            luas_tanah = tds[1].text
+            status_tanah = tds[2].text
+            luas_bangunan = tds[3].text
+            tahun_berdiri = tds[4].text
+            capacity = tds[5].text
+            contact = tds[6].text.strip()
+            facilities = cls._sanitize_string_list(tds[7].text)
+            activities = cls._sanitize_activities(tds[8].text)
+            jumlah_pengurus = cls._sanitize_int(tds[9].text)
+
+        except Exception:  # pylint: disable=broad-except
+            print(MASJID_PROFILE_URL % url_id, traceback.format_exc())
+            return None
 
         return Masjid(
             id_=id_,
