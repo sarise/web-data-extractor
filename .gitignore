@@ -3,6 +3,7 @@
 .eggs/
 .idea/
 .tox/
+.venv/
 .DS_Store
 dist/
 htmlcov/
