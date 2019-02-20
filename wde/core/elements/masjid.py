@@ -20,7 +20,7 @@ SDM = namedtuple('SDM', ['jamaah', 'imam', 'khatib', 'muazin', 'remaja'])
 class Masjid:
     def __init__(self, id_, name, url_id, address, provinsi, provinsi_id, kabupaten, kabupaten_id, kecamatan,
                  kecamatan_id, tipologi, tipologi_id, luas_tanah, status_tanah, luas_bangunan, tahun_berdiri, capacity,
-                 contact, jumlah_pengurus, jumlah_imam, jumlah_khatib, facilities, activities):
+                 contact, jumlah_pengurus, facilities, activities):
         self.id_ = id_
         self.name = name
         self.url_id = url_id
@@ -40,8 +40,6 @@ class Masjid:
         self.capacity = capacity
         self.contact = contact
         self.jumlah_pengurus = jumlah_pengurus
-        self.jumlah_imam = jumlah_imam
-        self.jumlah_khatib = jumlah_khatib
         self.fasilities = facilities
         self.activities = activities
 

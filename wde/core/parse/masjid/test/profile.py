@@ -49,8 +49,6 @@ def test_from_file1():
             "Lift bagi penyandang cacat"
         ],
         "id_": "01.0.11.03.02.000001",
-        "jumlah_imam": 10,
-        "jumlah_khatib": 10,
         "jumlah_pengurus": 20,
         "kabupaten": "KOTA ADM. JAKARTA PUSAT",
         "kabupaten_id": "152",
@@ -95,8 +93,6 @@ def test_from_file2():
             "Sarana Ibadah"
         ],
         "id_": "01.4.13.07.08.000106",
-        "jumlah_imam": 3,
-        "jumlah_khatib": 2,
         "jumlah_pengurus": 10,
         "kabupaten": "KAB. CIAMIS",
         "kabupaten_id": "170",

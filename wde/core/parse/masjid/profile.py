@@ -44,8 +44,6 @@ class Parser:
         facilities = cls._sanitize_string_list(tds[7].text)
         activities = cls._sanitize_activities(tds[8].text)
         jumlah_pengurus = cls._sanitize_int(tds[9].text)
-        jumlah_imam = cls._sanitize_int(tds[11].text)
-        jumlah_khatib = cls._sanitize_int(tds[12].text)
 
         return Masjid(
             id_=id_,
@@ -67,8 +65,6 @@ class Parser:
             capacity=capacity,
             contact=contact,
             jumlah_pengurus=jumlah_pengurus,
-            jumlah_imam=jumlah_imam,
-            jumlah_khatib=jumlah_khatib,
             facilities=facilities,
             activities=activities,
         )
