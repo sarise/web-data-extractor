@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+from collections import namedtuple
 from enum import Enum
 
 
@@ -12,6 +13,8 @@ class Tipologi(Enum):
     BERSEJARAH = 6
     PUBLIK = 7
     NASIONAL = 8
+
+SDM = namedtuple('SDM', ['jamaah', 'imam', 'khatib', 'muazin', 'remaja'])
 
 
 class Masjid:
@@ -41,3 +44,11 @@ class Masjid:
         self.jumlah_khatib = jumlah_khatib
         self.fasilities = facilities
         self.activities = activities
+
+    def update_sdm(self, sdm):
+        assert isinstance(sdm, SDM)
+        self.jamaah = sdm.jamaah
+        self.imam = sdm.imam
+        self.khatib = sdm.khatib
+        self.muazin = sdm.muazin
+        self.remaja = sdm.remaja

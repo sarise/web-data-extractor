@@ -1,14 +1,12 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from collections import namedtuple
-
 from bs4 import BeautifulSoup
 
+from wde.core.elements.masjid import SDM
 
 MASJID_LISTING_HOME_URL = 'http://simas.kemenag.go.id/index.php/profil/masjid/page/'
 MASJID_LISTING_URL = 'http://simas.kemenag.go.id/index.php/profil/masjid/page/%d'   # page id (multiple of 10)
 
-SDM = namedtuple('SDM', ['jamaah', 'imam', 'khatib', 'muazin', 'remaja'])
 
 
 class ListingParser:

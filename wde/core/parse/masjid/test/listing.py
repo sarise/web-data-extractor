@@ -2,10 +2,11 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import pytest
 
+from wde.core.elements.masjid import SDM
 from wde.core.parse.masjid.listing import (
     ListingParser,
     MASJID_LISTING_HOME_URL,
-    SDM)
+)
 from wde.core.utils.io import (
     get_content,
     read_file,
