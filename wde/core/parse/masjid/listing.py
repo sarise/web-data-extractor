@@ -36,6 +36,10 @@ class ListingParser:
         return results
 
     @classmethod
+    def construct_listing_url(cls, page_id):
+        return 'http://simas.kemenag.go.id/index.php/profil/masjid/page/%s' % page_id
+
+    @classmethod
     def _parse_paging_id_from_url(cls, url):
         # Example: http://simas.kemenag.go.id/index.php/profil/masjid/page/250250
         return url.split('/')[-1]

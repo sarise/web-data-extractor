@@ -17,6 +17,10 @@ class Parser:
     tipologi_to_id_mapping = extract_tipologi_ids()
 
     @classmethod
+    def construct_profile_url(cls, masjid_id):
+        return MASJID_PROFILE_URL % masjid_id
+
+    @classmethod
     def extract(cls, content, url_id=None):
         soup = BeautifulSoup(content, 'html.parser').find('div', class_='wrap')
 

@@ -12,6 +12,7 @@ setup(
     entry_points={
         'console_scripts': [
             'wde = wde.main:main',
+            'masjid = wde.core.parse.masjid.main:main',
             'populate_ids = wde.core.parse.masjid.populate_ids:main',
         ],
     },
