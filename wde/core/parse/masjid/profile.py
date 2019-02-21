@@ -31,7 +31,7 @@ class Parser:
             name = div_logo.find('h6').text
             address = div_logo.find_all('div')[-1].text.strip()
             tipologi = div_title.find('div', id='tip').find('a').text
-            tipologi_id = cls.tipologi_to_id_mapping[tipologi]
+            tipologi_id = cls.tipologi_to_id_mapping.get(tipologi, '')
 
             # Sub-heading bar
             div_alamat = soup.find('h5').find_all('a', href=True)
