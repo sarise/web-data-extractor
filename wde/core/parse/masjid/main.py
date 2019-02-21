@@ -5,6 +5,7 @@ import time
 
 from datetime import datetime
 from multiprocessing.pool import Pool
+from tqdm import tqdm
 
 from wde.core.parse.masjid.listing import ListingParser, MASJID_LISTING_HOME_URL
 from wde.core.parse.masjid.profile import Parser
@@ -36,10 +37,14 @@ def main():
     print(last_page_id)
 
     page_ids = range(0, int(last_page_id), 10)
-    page_ids = map(str, page_ids)
+    page_ids = list(map(str, page_ids))
 
-    with Pool(100) as p:
-        records = p.map(work, page_ids)
+    records = []
+    with Pool(processes=100) as p:
+        with tqdm(total=len(page_ids)) as progress_bar:
+            for _, result in tqdm(enumerate(p.imap_unordered(work, page_ids))):
+                progress_bar.update()
+                records.append(result)
 
     masjids = {}
     for record in records:
