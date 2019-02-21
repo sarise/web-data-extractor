@@ -5,7 +5,7 @@ import traceback
 
 from bs4 import BeautifulSoup
 
-from wde.core.elements.masjid import Masjid
+from wde.core.elements.masjid import Masjid, Details
 from wde.core.parse.masjid.populate_ids import extract_tipologi_ids
 
 MASJID_PROFILE_URL = 'http://simas.kemenag.go.id/index.php/profil/masjid/%s/'   # masjid_id
@@ -36,18 +36,43 @@ class Parser:
             kecamatan, kecamatan_id = div_alamat[2].text, div_alamat[2]['href'].split('=')[-1]
 
             # Table
-            tds = soup.find('table', id='profil-table').find_all('td')
-            id_ = tds[0].text.strip()
-            luas_tanah = tds[1].text
-            status_tanah = tds[2].text
-            luas_bangunan = tds[3].text
-            tahun_berdiri = tds[4].text
-            capacity = tds[5].text
-            contact = tds[6].text.strip()
-            facilities = cls._sanitize_string_list(tds[7].text)
-            activities = cls._sanitize_activities(tds[8].text)
-            jumlah_pengurus = cls._sanitize_int(tds[9].text)
+            main_table = soup.find('table', id='profil-table')
+            id_ = main_table.find('td').text.strip()  # Assume the first one is always masjid/mushalla id
 
+            header_to_variable_mapping = {
+                'Luas Tanah': 'luas_tanah',
+                'Status Tanah': 'status_tanah',
+                'Luas Bangunan': 'luas_bangunan',
+                'Tahun Berdiri': 'tahun_berdiri',
+                'Daya Tampung Jamaah': 'capacity',
+                'No Telp/Faks': 'contact',
+                'Fasilitas': 'facilities',
+                'Kegiatan': 'activities',
+                'Jumlah Pengurus': 'jumlah_pengurus',
+            }
+
+            # Initialize the dict with empty string to avoid failed creation of namedtuple Details
+            data = {}
+            for key in header_to_variable_mapping.values():
+                data[key] = ''
+
+            # Extract data based on the matching header
+            for row in main_table.find_all('tr'):
+                th = row.find('th')
+                if th:
+                    header = th.text
+                    if header not in ['ID Masjid', 'ID Mushalla', 'IMAM', 'KHATIB', 'Dokumen']:
+                        data[header_to_variable_mapping[header]] = row.find('td').text
+
+            # Sanitized the extracted data
+            data['luas_tanah'] = cls._sanitize_luas(data['luas_tanah'])
+            data['luas_bangunan'] = cls._sanitize_luas(data['luas_bangunan'])
+            data['contact'] = data['contact'].strip()
+            data['facilities'] = cls._sanitize_string_list(data['facilities'])
+            data['activities'] = cls._sanitize_activities(data['activities'])
+            data['jumlah_pengurus'] = cls._sanitize_int(data['jumlah_pengurus'])
+            details = Details(**data)
+            
         except Exception:  # pylint: disable=broad-except
             print(MASJID_PROFILE_URL % url_id, traceback.format_exc())
             return None
@@ -65,15 +90,7 @@ class Parser:
             kecamatan_id=kecamatan_id,
             tipologi=tipologi,
             tipologi_id=tipologi_id,
-            luas_tanah=cls._sanitize_luas(luas_tanah),
-            status_tanah=status_tanah,
-            luas_bangunan=cls._sanitize_luas(luas_bangunan),
-            tahun_berdiri=tahun_berdiri,
-            capacity=capacity,
-            contact=contact,
-            jumlah_pengurus=jumlah_pengurus,
-            facilities=facilities,
-            activities=activities,
+            details=details,
         )
 
     @classmethod

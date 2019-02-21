@@ -16,11 +16,21 @@ class Tipologi(Enum):
 
 SDM = namedtuple('SDM', ['jamaah', 'imam', 'khatib', 'muazin', 'remaja'])
 
+Details = namedtuple('Details', [
+    'luas_tanah',
+    'status_tanah',
+    'luas_bangunan',
+    'tahun_berdiri',
+    'capacity',
+    'contact',
+    'facilities',
+    'activities',
+    'jumlah_pengurus',
+])
 
 class Masjid:
     def __init__(self, id_, name, url_id, address, provinsi, provinsi_id, kabupaten, kabupaten_id, kecamatan,
-                 kecamatan_id, tipologi, tipologi_id, luas_tanah, status_tanah, luas_bangunan, tahun_berdiri, capacity,
-                 contact, jumlah_pengurus, facilities, activities):
+                 kecamatan_id, tipologi, tipologi_id, details):
         self.id_ = id_
         self.name = name
         self.url_id = url_id
@@ -33,15 +43,17 @@ class Masjid:
         self.kecamatan_id = kecamatan_id
         self.tipologi = tipologi
         self.tipologi_id = tipologi_id
-        self.luas_tanah = luas_tanah
-        self.status_tanah = status_tanah
-        self.luas_bangunan = luas_bangunan
-        self.tahun_berdiri = tahun_berdiri
-        self.capacity = capacity
-        self.contact = contact
-        self.jumlah_pengurus = jumlah_pengurus
-        self.fasilities = facilities
-        self.activities = activities
+
+        assert isinstance(details, Details)
+        self.luas_tanah = details.luas_tanah
+        self.status_tanah = details.status_tanah
+        self.luas_bangunan = details.luas_bangunan
+        self.tahun_berdiri = details.tahun_berdiri
+        self.capacity = details.capacity
+        self.contact = details.contact
+        self.jumlah_pengurus = details.jumlah_pengurus
+        self.fasilities = details.facilities
+        self.activities = details.activities
 
     def update_sdm(self, sdm):
         assert isinstance(sdm, SDM)
