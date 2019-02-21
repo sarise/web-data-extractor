@@ -119,4 +119,4 @@ class Parser:
 
     @classmethod
     def _sanitize_string_list(cls, text):
-        return list(map(lambda x: x.strip(), text.split(',')))
+        return list(map(lambda x: x.strip(), text.split(','))) if text else []
