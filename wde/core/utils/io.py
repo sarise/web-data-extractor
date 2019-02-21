@@ -1,5 +1,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import csv
+
 import requests
 import simplejson as json
 
@@ -28,3 +30,12 @@ def pretty_print(data):
 def write_json_to_file(filename, data):
     with open(filename, 'w') as f:
         f.write(pretty_print(data))
+
+
+def write_data_to_csv(filename, data):
+    with open(filename, 'w', newline='') as csvfile:
+        fieldnames = list(data[0].keys())
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        writer.writeheader()
+        writer.writerows(data)

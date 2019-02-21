@@ -9,7 +9,11 @@ from tqdm import tqdm
 
 from wde.core.parse.masjid.listing import ListingParser, MASJID_LISTING_HOME_URL
 from wde.core.parse.masjid.profile import Parser
-from wde.core.utils.io import get_content, write_json_to_file
+from wde.core.utils.io import (
+    get_content,
+    write_json_to_file,
+    write_data_to_csv,
+)
 
 
 def work(page_id):
@@ -50,12 +54,13 @@ def main():
     for record in records:
         masjids.update(record)
 
-    file_name = 'masjids_%s_%d.json' % (
+    file_name = 'masjids_%s_%d' % (
         datetime.now().strftime('%Y%m%d_%H%M%S'),
         len(masjids),
     )
     print(file_name)
-    write_json_to_file(file_name, masjids)
+    write_json_to_file('%s.json' % file_name, masjids)
+    write_data_to_csv('%s.csv' % file_name, list(masjids.values()))
 
 if __name__ == '__main__':
     main()
