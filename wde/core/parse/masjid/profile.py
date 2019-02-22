@@ -104,6 +104,10 @@ class Parser:
             '(TPA, Madrasah, Pusat Kegiatan Belajar Masyarakat)',
             '(TPA/Madrasah/Pusat Kegiatan Belajar Masyarakat)',
         )
+        text = text.replace(
+            'Pemberdayaan Zakat, Infaq, Shodaqoh dan Wakaf',
+            'Pemberdayaan Zakat/Infaq/Shodaqoh dan Wakaf'
+        )
         return cls._sanitize_string_list(text)
 
     @classmethod

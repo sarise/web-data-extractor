@@ -7,6 +7,10 @@ from datetime import datetime
 from multiprocessing.pool import Pool
 from tqdm import tqdm
 
+from wde.core.elements.masjid import (
+    daftar_fasilitas,
+    daftar_kegiatan,
+)
 from wde.core.parse.masjid.listing import ListingParser, MASJID_LISTING_HOME_URL
 from wde.core.parse.masjid.profile import Parser
 from wde.core.utils.io import (
@@ -27,7 +31,7 @@ def work(page_id):
         masjid = Parser.extract(html, masjid_url_id)
         if masjid:
             masjid.update_sdm(sdm)
-            masjids[masjid_url_id] = masjid.__dict__
+            masjids[masjid_url_id] = masjid.to_dict()
 
     return masjids
 
@@ -61,6 +65,19 @@ def main():
     print(file_name)
     write_json_to_file('%s.json' % file_name, masjids)
     write_data_to_csv('%s.csv' % file_name, list(masjids.values()))
+    write_data_to_csv('%s_kegiatan.csv' % file_name, [daftar_kegiatan])
+    write_data_to_csv('%s_fasilitas.csv' % file_name, [daftar_fasilitas])
+
+    leftover_kegiatan = set()
+    for masjid in masjids.values():
+        leftover_kegiatan.update(masjid['k'])
+    print('k', leftover_kegiatan)
+
+    leftover_fasilitas = set()
+    for masjid in masjids.values():
+        leftover_fasilitas.update(masjid['f'])
+    print('f', leftover_fasilitas)
+
 
 if __name__ == '__main__':
     main()
