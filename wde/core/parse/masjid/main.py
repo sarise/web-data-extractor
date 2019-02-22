@@ -22,6 +22,9 @@ from wde.core.utils.io import (
 
 def work(page_id):
     html = get_content(ListingParser.construct_listing_url(page_id))
+    if html is None:
+        return {}
+
     listing = ListingParser.extract(html)
 
     masjids = {}

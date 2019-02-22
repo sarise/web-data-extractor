@@ -15,10 +15,18 @@ def get_content(url):
     headers = {
         'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) '
                       'Chrome/53.0.2785.143 Safari/537.36'}
-    page = requests.get(url, headers=headers, timeout=10)
+    try:
+        page = requests.get(url, headers=headers, timeout=60)
+    except requests.ReadTimeout:
+        print('ReadTimeout', url)
+        return None
 
     if page.status_code == 200:
-        return page.content.decode('UTF-8')
+        try:
+            return page.content.decode('UTF-8')
+        except UnicodeDecodeError:
+            print('UnicodeDecodeError', url)
+            return page.text
 
     return None
 
