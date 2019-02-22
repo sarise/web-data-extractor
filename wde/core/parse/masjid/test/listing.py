@@ -23,7 +23,7 @@ def online():
 
 @pytest.mark.parametrize('source, expected', [
     (offline,     '250320'),
-    (online,      '250450'),
+    (online,      '250500'),
 ])
 def test_listing_get_last_page_id(source, expected):
     last_page_id = ListingParser.get_last_page_id(source())
@@ -36,5 +36,17 @@ def test_listing_get_last_page_id(source, expected):
 ])
 def test_listing_extract(source):
     result = ListingParser.extract(source())
+    assert len(result) == 10
+    assert all([isinstance(sdm, SDM) for sdm in result.values()])
+
+
+@pytest.mark.parametrize('url', [
+    'http://simas.kemenag.go.id/index.php/profil/masjid/page/33810',
+    'http://simas.kemenag.go.id/index.php/profil/masjid/page/34400',
+    'http://simas.kemenag.go.id/index.php/profil/masjid/page/41960',
+])
+def test_listing_unicode(url):
+    source = get_content(url)
+    result = ListingParser.extract(source)
     assert len(result) == 10
     assert all([isinstance(sdm, SDM) for sdm in result.values()])
