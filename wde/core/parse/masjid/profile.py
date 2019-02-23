@@ -8,17 +8,16 @@ from bs4 import BeautifulSoup
 from wde.core.elements.masjid import Masjid, Details
 from wde.core.parse.masjid.populate_ids import extract_tipologi_ids
 
-MASJID_PROFILE_URL = 'http://simas.kemenag.go.id/index.php/profil/masjid/%s/'   # masjid_id
-MASJID_TABLE_URL = 'http://simas.kemenag.go.id/index.php/profil/masjid/%s'      # table iterator
-
 
 class Parser:
 
     tipologi_to_id_mapping = extract_tipologi_ids()
+    profile_url = 'http://simas.kemenag.go.id/index.php/profil/masjid/%s/'   # masjid_id
+    element_cls = Masjid
 
     @classmethod
     def construct_profile_url(cls, masjid_id):
-        return MASJID_PROFILE_URL % masjid_id
+        return cls.profile_url % masjid_id
 
     @classmethod
     def extract(cls, content, url_id=None):
@@ -78,10 +77,10 @@ class Parser:
             details = Details(**data)
             
         except Exception:  # pylint: disable=broad-except
-            print(MASJID_PROFILE_URL % url_id, traceback.format_exc())
+            print(cls.construct_profile_url(url_id), traceback.format_exc())
             return None
 
-        return Masjid(
+        return cls.element_cls(
             id_=id_,
             name=name,
             url_id=url_id,

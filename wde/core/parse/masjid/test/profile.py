@@ -2,10 +2,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import pytest
 
-from wde.core.parse.masjid.profile import (
-    MASJID_PROFILE_URL,
-    Parser,
-)
+from wde.core.parse.masjid.profile import Parser
 from wde.core.utils.io import (
     get_content,
     read_file,
@@ -120,10 +117,18 @@ def test_compare_online_and_downloaded():
     local = read_file('wde/core/parse/masjid/test/html/masjid_profile.html')
     masjid1 = Parser.extract(local, url_id=url_id)
 
-    online = get_content(MASJID_PROFILE_URL % url_id)
+    online = get_content(Parser.construct_profile_url(url_id))
     masjid2 = Parser.extract(online, url_id=url_id)
 
     assert masjid1.__dict__ == masjid2.__dict__
+
+
+@pytest.mark.parametrize('page_id, expected', [
+    ('173156',      'http://simas.kemenag.go.id/index.php/profil/masjid/173156/'),
+    ('89028',       'http://simas.kemenag.go.id/index.php/profil/masjid/89028/'),
+])
+def test_listing_construct_profile_url(page_id, expected):
+    assert Parser.construct_profile_url(page_id) == expected
 
 
 # @pytest.mark.parametrize('url', [

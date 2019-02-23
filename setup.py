@@ -14,6 +14,7 @@ setup(
         'console_scripts': [
             'wde = wde.main:main',
             'masjid = wde.core.parse.masjid.main:main',
+            'mushalla = wde.core.parse.mushalla.main:main',
             'populate_ids = wde.core.parse.masjid.populate_ids:main',
         ],
     },
