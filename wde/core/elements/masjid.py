@@ -29,51 +29,52 @@ Details = namedtuple('Details', [
 ])
 
 
-daftar_kegiatan = {
-    'Pemberdayaan Zakat/Infaq/Shodaqoh dan Wakaf': 'k0',
-    'Menyelenggarakan kegiatan pendidikan (TPA/Madrasah/Pusat Kegiatan Belajar Masyarakat)': 'k1',
-    'Menyelenggarakan kegiatan sosial ekonomi (koperasi masjid)': 'k2',
-    'Menyelenggarakan Pengajian Rutin': 'k3',
-    'Menyelenggarakan Dakwah Islam/Tabliq Akbar': 'k4',
-    'Menyelenggarakan Kegiatan Hari Besar Islam': 'k5',
-    'Menyelenggarakan Sholat Jumat': 'k6',
-    'Menyelenggarakan Ibadah Sholat Fardhu': 'k7',
-    '-': 'k8',
-    'BAIK': 'k9',
-    'Rusak Ringan': 'k10',
-    'PENYEMBELIHAN HEWAN QURBAN': 'k11',
-    'shedekah jumat': 'k12',
-}
-
-daftar_fasilitas = {
-    'Internet Akses': 'f0',
-    'Parkir': 'f1',
-    'Taman': 'f2',
-    'Gudang': 'f3',
-    'Tempat Penitipan Sepatu/Sandal': 'f4',
-    'Ruang Belajar (TPA/Madrasah)': 'f5',
-    'Aula Serba Guna': 'f6',
-    'Poliklinik': 'f7',
-    'Koperasi': 'f8',
-    'Perpustakaan': 'f9',
-    'Kantor Sekretariat': 'f10',
-    'Penyejuk Udara/AC': 'f11',
-    'Sound System dan Multimedia': 'f11',
-    'Pembangkit Listrik/Genset': 'f12',
-    'Kamar Mandi/WC': 'f13',
-    'Tempat Wudhu': 'f14',
-    'Sarana Ibadah': 'f15',
-    'Sarana Olah Raga': 'f16',
-    'Lift bagi penyandang cacat': 'f17',
-    'Perlengkapan Pengurusan Jenazah': 'f18',
-    'Toko': 'f19',
-    'Mobil Ambulance': 'f20',
-    'CCTV': 'f21',
-    '-': 'f22',
-    'BAIK': 'f23',
-}
-
 class Masjid:
+
+    daftar_kegiatan = {
+        'Pemberdayaan Zakat/Infaq/Shodaqoh dan Wakaf': 'k0',
+        'Menyelenggarakan kegiatan pendidikan (TPA/Madrasah/Pusat Kegiatan Belajar Masyarakat)': 'k1',
+        'Menyelenggarakan kegiatan sosial ekonomi (koperasi masjid)': 'k2',
+        'Menyelenggarakan Pengajian Rutin': 'k3',
+        'Menyelenggarakan Dakwah Islam/Tabliq Akbar': 'k4',
+        'Menyelenggarakan Kegiatan Hari Besar Islam': 'k5',
+        'Menyelenggarakan Sholat Jumat': 'k6',
+        'Menyelenggarakan Ibadah Sholat Fardhu': 'k7',
+        '-': 'k8',
+        'BAIK': 'k9',
+        'Rusak Ringan': 'k10',
+        'PENYEMBELIHAN HEWAN QURBAN': 'k11',
+        'shedekah jumat': 'k12',
+    }
+
+    daftar_fasilitas = {
+        'Internet Akses': 'f0',
+        'Parkir': 'f1',
+        'Taman': 'f2',
+        'Gudang': 'f3',
+        'Tempat Penitipan Sepatu/Sandal': 'f4',
+        'Ruang Belajar (TPA/Madrasah)': 'f5',
+        'Aula Serba Guna': 'f6',
+        'Poliklinik': 'f7',
+        'Koperasi': 'f8',
+        'Perpustakaan': 'f9',
+        'Kantor Sekretariat': 'f10',
+        'Penyejuk Udara/AC': 'f11',
+        'Sound System dan Multimedia': 'f12',
+        'Pembangkit Listrik/Genset': 'f13',
+        'Kamar Mandi/WC': 'f14',
+        'Tempat Wudhu': 'f15',
+        'Sarana Ibadah': 'f16',
+        'Sarana Olah Raga': 'f17',
+        'Lift bagi penyandang cacat': 'f18',
+        'Perlengkapan Pengurusan Jenazah': 'f19',
+        'Toko': 'f20',
+        'Mobil Ambulance': 'f21',
+        'CCTV': 'f22',
+        '-': 'f23',
+        'BAIK': 'f24',
+    }
+
     def __init__(self, id_, name, url_id, address, provinsi, provinsi_id, kabupaten, kabupaten_id, kecamatan,
                  kecamatan_id, tipologi, tipologi_id, details):
         self.id_ = id_
@@ -112,12 +113,12 @@ class Masjid:
         result = self.__dict__
 
         # Fasilitas
-        flatten = self._flatten_list(daftar_fasilitas, result['fasilities'], 'f')
+        flatten = self._flatten_list(self.daftar_fasilitas, result['fasilities'], 'f')
         result.update(flatten)
         del(result['fasilities'])
 
         # Kegiatan
-        flatten = self._flatten_list(daftar_kegiatan, result['activities'], 'k')
+        flatten = self._flatten_list(self.daftar_kegiatan, result['activities'], 'k')
         result.update(flatten)
         del(result['activities'])
 

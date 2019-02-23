@@ -4,12 +4,11 @@ from bs4 import BeautifulSoup
 
 from wde.core.elements.masjid import SDM
 
-MASJID_LISTING_HOME_URL = 'http://simas.kemenag.go.id/index.php/profil/masjid/page/'
-MASJID_LISTING_URL = 'http://simas.kemenag.go.id/index.php/profil/masjid/page/%d'   # page id (multiple of 10)
-
-
 
 class ListingParser:
+
+    listing_home_url = 'http://simas.kemenag.go.id/index.php/profil/masjid/page/'
+    listing_url = 'http://simas.kemenag.go.id/index.php/profil/masjid/page/%s'
 
     @classmethod
     def get_last_page_id(cls, content):
@@ -37,7 +36,7 @@ class ListingParser:
 
     @classmethod
     def construct_listing_url(cls, page_id):
-        return 'http://simas.kemenag.go.id/index.php/profil/masjid/page/%s' % page_id
+        return cls.listing_url % page_id
 
     @classmethod
     def _parse_paging_id_from_url(cls, url):

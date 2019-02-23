@@ -7,11 +7,8 @@ from datetime import datetime
 from multiprocessing.pool import Pool
 from tqdm import tqdm
 
-from wde.core.elements.masjid import (
-    daftar_fasilitas,
-    daftar_kegiatan,
-)
-from wde.core.parse.masjid.listing import ListingParser, MASJID_LISTING_HOME_URL
+from wde.core.elements.masjid import Masjid
+from wde.core.parse.masjid.listing import ListingParser
 from wde.core.parse.masjid.profile import Parser
 from wde.core.utils.io import (
     get_content,
@@ -20,18 +17,18 @@ from wde.core.utils.io import (
 )
 
 
-def work(page_id):
-    html = get_content(ListingParser.construct_listing_url(page_id))
+def work(page_id, listing_parser_cls=ListingParser, parser_cls=Parser):
+    html = get_content(listing_parser_cls.construct_listing_url(page_id))
     if html is None:
         return {}
 
-    listing = ListingParser.extract(html)
+    listing = listing_parser_cls.extract(html)
 
     masjids = {}
     for masjid_url_id, sdm in listing.items():
         time.sleep(random.random())
-        html = get_content(Parser.construct_profile_url(masjid_url_id))
-        masjid = Parser.extract(html, masjid_url_id)
+        html = get_content(parser_cls.construct_profile_url(masjid_url_id))
+        masjid = parser_cls.extract(html, masjid_url_id)
         if masjid:
             masjid.update_sdm(sdm)
             masjids[masjid_url_id] = masjid.to_dict()
@@ -40,7 +37,7 @@ def work(page_id):
 
 
 def main():
-    html = get_content(MASJID_LISTING_HOME_URL)
+    html = get_content(ListingParser.listing_home_url)
     last_page_id = ListingParser.get_last_page_id(html)
     print(last_page_id)
 
@@ -51,7 +48,7 @@ def main():
     page_ids = list(map(str, page_ids))
 
     records = []
-    with Pool(processes=100) as p:
+    with Pool(processes=200) as p:
         with tqdm(total=len(page_ids)) as progress_bar:
             for _, result in tqdm(enumerate(p.imap_unordered(work, page_ids))):
                 progress_bar.update()
@@ -68,8 +65,8 @@ def main():
     print(file_name)
     write_json_to_file('%s.json' % file_name, masjids)
     write_data_to_csv('%s.csv' % file_name, list(masjids.values()))
-    write_data_to_csv('%s_kegiatan.csv' % file_name, [daftar_kegiatan])
-    write_data_to_csv('%s_fasilitas.csv' % file_name, [daftar_fasilitas])
+    write_data_to_csv('%s_kegiatan.csv' % file_name, [Masjid.daftar_kegiatan])
+    write_data_to_csv('%s_fasilitas.csv' % file_name, [Masjid.daftar_fasilitas])
 
     leftover_kegiatan = set()
     for masjid in masjids.values():
