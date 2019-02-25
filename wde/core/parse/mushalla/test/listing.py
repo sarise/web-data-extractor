@@ -19,7 +19,7 @@ def online():
 
 @pytest.mark.parametrize('source, expected', [
     (offline,     '279470'),
-    (online,      '279470'),
+    (online,      '279690'),
 ])
 def test_listing_get_last_page_id(source, expected):
     last_page_id = ListingParser.get_last_page_id(source())
