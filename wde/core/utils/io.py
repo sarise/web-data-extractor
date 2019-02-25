@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import csv
+import os
 
 import requests
 import simplejson as json
@@ -35,12 +36,16 @@ def pretty_print(data):
     return json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
 
 
-def write_json_to_file(filename, data):
+def write_json_to_file(filename, data, directory=None):
+    if directory:
+        filename = os.path.join(directory, filename)
     with open(filename, 'w') as f:
         f.write(pretty_print(data))
 
 
-def write_data_to_csv(filename, data):
+def write_data_to_csv(filename, data, directory=None):
+    if directory:
+        filename = os.path.join(directory, filename)
     with open(filename, 'w', newline='') as csvfile:
         fieldnames = list(data[0].keys())
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)

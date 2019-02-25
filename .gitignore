@@ -7,6 +7,10 @@
 .DS_Store
 dist/
 htmlcov/
+output/masjid_*.json
+output/masjid_*.csv
+output/mushalla_*.json
+output/mushalla_*.csv
 web_data_extractor.egg-info/
 __pycache__
 *.pyc

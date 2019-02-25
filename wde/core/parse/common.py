@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import os
 import random
 import time
 
@@ -15,6 +16,7 @@ from wde.core.utils.io import (
     write_data_to_csv,
 )
 
+OUTPUT_DIRECTORY = "output"
 
 def work(page_id, listing_parser_cls, parser_cls):
     html = get_content(listing_parser_cls.construct_listing_url(page_id))
@@ -62,11 +64,14 @@ def main(listing_parser_cls, element_cls, work_function):
         datetime.now().strftime('%Y%m%d_%H%M%S'),
         len(output_dict),
     )
-    print(file_name)
-    write_json_to_file('%s.json' % file_name, output_dict)
-    write_data_to_csv('%s.csv' % file_name, list(output_dict.values()))
-    write_data_to_csv('%s_kegiatan.csv' % file_name, [element_cls.daftar_kegiatan])
-    write_data_to_csv('%s_fasilitas.csv' % file_name, [element_cls.daftar_fasilitas])
+
+    os.makedirs(OUTPUT_DIRECTORY, exist_ok=True)
+
+    print(OUTPUT_DIRECTORY, file_name)
+    write_json_to_file('%s.json' % file_name, output_dict, OUTPUT_DIRECTORY)
+    write_data_to_csv('%s.csv' % file_name, list(output_dict.values()), OUTPUT_DIRECTORY)
+    write_data_to_csv('%s_kegiatan.csv' % file_name, [element_cls.daftar_kegiatan], OUTPUT_DIRECTORY)
+    write_data_to_csv('%s_fasilitas.csv' % file_name, [element_cls.daftar_fasilitas], OUTPUT_DIRECTORY)
 
     leftover_kegiatan = defaultdict(int)
     leftover_fasilitas = defaultdict(int)
