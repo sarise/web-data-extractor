@@ -3,12 +3,14 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import random
 import time
 
+from collections import defaultdict
 from datetime import datetime
 from multiprocessing.pool import Pool
 from tqdm import tqdm
 
 from wde.core.utils.io import (
     get_content,
+    pretty_print,
     write_json_to_file,
     write_data_to_csv,
 )
@@ -66,12 +68,13 @@ def main(listing_parser_cls, element_cls, work_function):
     write_data_to_csv('%s_kegiatan.csv' % file_name, [element_cls.daftar_kegiatan])
     write_data_to_csv('%s_fasilitas.csv' % file_name, [element_cls.daftar_fasilitas])
 
-    leftover_kegiatan = set()
+    leftover_kegiatan = defaultdict(int)
+    leftover_fasilitas = defaultdict(int)
     for masjid in output_dict.values():
-        leftover_kegiatan.update(masjid['k'])
-    print('k', leftover_kegiatan)
+        for kegiatan in masjid['k']:
+            leftover_kegiatan[kegiatan] += 1
+        for fasilitas in masjid['f']:
+            leftover_fasilitas[fasilitas] += 1
 
-    leftover_fasilitas = set()
-    for masjid in output_dict.values():
-        leftover_fasilitas.update(masjid['f'])
-    print('f', leftover_fasilitas)
+    print('k', pretty_print(leftover_kegiatan))
+    print('f', pretty_print(leftover_fasilitas))
