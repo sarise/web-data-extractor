@@ -1,9 +1,12 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import argparse
+
 import os
 import random
 import time
 
+import sys
 from collections import defaultdict
 from datetime import datetime
 from multiprocessing.pool import Pool
@@ -37,12 +40,29 @@ def work(page_id, listing_parser_cls, parser_cls):
     return masjids
 
 
+def _parse_args():
+    parser = argparse.ArgumentParser(
+        description='Download profiles from SIMAS and output it as JSON blob and csv files.',
+    )
+    parser.add_argument(
+        '--last-page-id',
+        '-l',
+        type=int,
+        default=5000,
+        help='define the last page id of listing url.',
+    )
+    return parser.parse_args(sys.argv[1:])
+
+
 def main(listing_parser_cls, element_cls, work_function):
+    args = _parse_args()
+
     html = get_content(listing_parser_cls.listing_home_url)
     last_page_id = listing_parser_cls.get_last_page_id(html)
     print(last_page_id)
 
-    last_page_id = 5000
+    if args.last_page_id > 0:
+        last_page_id = args.last_page_id
     print(last_page_id)
 
     page_ids = range(0, int(last_page_id), 10)
