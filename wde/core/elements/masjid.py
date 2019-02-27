@@ -31,48 +31,52 @@ Details = namedtuple('Details', [
 
 class Masjid:
 
-    daftar_kegiatan = {
-        'Pemberdayaan Zakat/Infaq/Shodaqoh dan Wakaf': 'k0',
-        'Menyelenggarakan kegiatan pendidikan (TPA/Madrasah/Pusat Kegiatan Belajar Masyarakat)': 'k1',
-        'Menyelenggarakan kegiatan sosial ekonomi (koperasi masjid)': 'k2',
-        'Menyelenggarakan Pengajian Rutin': 'k3',
-        'Menyelenggarakan Dakwah Islam/Tabliq Akbar': 'k4',
-        'Menyelenggarakan Kegiatan Hari Besar Islam': 'k5',
-        'Menyelenggarakan Sholat Jumat': 'k6',
-        'Menyelenggarakan Ibadah Sholat Fardhu': 'k7',
-        '-': 'k8',
-        'BAIK': 'k9',
-        'Rusak Ringan': 'k10',
-        'PENYEMBELIHAN HEWAN QURBAN': 'k11',
-        'shedekah jumat': 'k12',
+    daftar_kegiatan = {  # filtered >50
+        'menyelenggarakan dakwah islam/tabliq akbar': 'k0',  # 119518
+        'menyelenggarakan ibadah sholat fardhu': 'k1',  # 227615
+        'menyelenggarakan kegiatan hari besar islam': 'k2',  # 194191
+        'menyelenggarakan pengajian rutin': 'k3',  # 159177
+        'menyelenggarakan sholat jumat': 'k4',  # 218927
+        'menyelenggarakan kegiatan pendidikan (tpa/madrasah/pusat kegiatan belajar masyarakat)': 'k5',  # 115616
+        'menyelenggarakan kegiatan sosial ekonomi (koperasi masjid)': 'k6',  # 15482
+        'penyembelihan hewan qurban': 'k7',  # 55
+        'pemberdayaan zakat/infaq/shodaqoh dan wakaf': 'k8',  # 151421
     }
 
     daftar_fasilitas = {
-        'Internet Akses': 'f0',
-        'Parkir': 'f1',
-        'Taman': 'f2',
-        'Gudang': 'f3',
-        'Tempat Penitipan Sepatu/Sandal': 'f4',
-        'Ruang Belajar (TPA/Madrasah)': 'f5',
-        'Aula Serba Guna': 'f6',
-        'Poliklinik': 'f7',
-        'Koperasi': 'f8',
-        'Perpustakaan': 'f9',
-        'Kantor Sekretariat': 'f10',
-        'Penyejuk Udara/AC': 'f11',
-        'Sound System dan Multimedia': 'f12',
-        'Pembangkit Listrik/Genset': 'f13',
-        'Kamar Mandi/WC': 'f14',
-        'Tempat Wudhu': 'f15',
-        'Sarana Ibadah': 'f16',
-        'Sarana Olah Raga': 'f17',
-        'Lift bagi penyandang cacat': 'f18',
-        'Perlengkapan Pengurusan Jenazah': 'f19',
-        'Toko': 'f20',
-        'Mobil Ambulance': 'f21',
-        'CCTV': 'f22',
-        '-': 'f23',
-        'BAIK': 'f24',
+        'aula serba guna': 'f0',  # 9866
+        'gudang': 'f1',  # 91620
+        'internet akses': 'f2',  # 1924
+        'kipas angin': 'f3',  # 69
+        'kamar mandi/wc': 'f4',  # 209492
+        'kantor sekretariat': 'f5',  # 31636
+        'kegiatan sosial': 'f6',  # 205
+        'kegiatan sosial :': 'f7',  # 474
+        'khitanan massal': 'f8',  # 174
+        'koperasi': 'f9',  # 2366
+        'lemari': 'f10',  # 65
+        'mtq': 'f11',  # 146
+        'mobil ambulance': 'f12',  # 1724
+        'phbi': 'f13',  # 559
+        'parkir': 'f14',  # 123424
+        'pembangkit listrik/genset': 'f15',  # 133556
+        'pengumpulan zakat fitrah': 'f16',  # 666
+        'penyaluran qurban': 'f17',  # 655
+        'penyejuk udara/ac': 'f18',  # 88045
+        'perlengkapan pengurusan jenazah': 'f19',  # 89121
+        'perpustakaan': 'f20',  # 18076
+        'poliklinik': 'f21',  # 814
+        'ruang belajar (tpa/madrasah)': 'f22',  # 69948
+        'serambi': 'f23',  # 65
+        'sarana ibadah': 'f24',  # 220940
+        'sembahyang jenazah': 'f25',  # 490
+        'sholat jenazah': 'f26',  # 79
+        'sound system dan multimedia': 'f27',  # 189580
+        'taman': 'f28',  # 43059
+        'tempat penitipan sepatu/sandal': 'f29',  # 46264
+        'tempat wudhu': 'f30',  # 229291
+        'toko': 'f31',  # 1626
+        'upacara perkawinan': 'f32',  # 445
     }
 
     def __init__(self, id_, name, url_id, address, provinsi, provinsi_id, kabupaten, kabupaten_id, kecamatan,
@@ -126,6 +130,7 @@ class Masjid:
 
     @staticmethod
     def _flatten_list(mapping, list_, leftover_key):
+        list_ = list(map(str.lower, list_))
         flatten = {}
         for text, field in mapping.items():
             try:
